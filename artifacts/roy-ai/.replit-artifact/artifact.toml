@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Roy AI"
+version = "1.0.0"
+id = "artifacts/roy-ai"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 26219
+
+[services.development]
+run = "pnpm --filter @workspace/roy-ai run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/roy-ai", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/roy-ai/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "26219"
+BASE_PATH = "/"
