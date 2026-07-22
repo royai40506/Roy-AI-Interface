@@ -10,7 +10,7 @@ export interface Message {
   attachedFile?: string;
 }
 
-export type Language = 'en' | 'hi';
+export type Language = 'en' | 'hi' | 'mr';
 
 export interface MemoryEntry {
   id: string;
@@ -48,7 +48,7 @@ interface AppContextType {
 }
 
 const defaultColors = {
-  blue: '239 84% 67%',    // #6366f1
+  blue: '239 84% 67%',
 };
 
 const defaultContext: AppContextType = {
@@ -75,11 +75,14 @@ const getInitialMessages = (lang: Language): Message[] => [
   {
     id: 'welcome-1',
     role: 'assistant',
-    content: lang === 'en' 
-      ? "Hi there. I'm Roy. How can I help you today?" 
-      : "नमस्ते। मैं रॉय हूँ। आज मैं आपकी कैसे मदद कर सकता हूँ?",
+    content:
+      lang === 'en'
+        ? "Hi there. I'm Roy. How can I help you today?"
+        : lang === 'hi'
+        ? 'नमस्ते। मैं रॉय हूँ। आज मैं आपकी कैसे मदद कर सकता हूँ?'
+        : 'नमस्कार। मी रॉय आहे। आज मी तुम्हाला कशी मदत करू शकतो?',
     timestamp: new Date(),
-  }
+  },
 ];
 
 const getInitialMemories = (): MemoryEntry[] => [
@@ -88,29 +91,29 @@ const getInitialMemories = (): MemoryEntry[] => [
     content: 'User prefers concise answers',
     category: 'preference',
     source: 'Chat on July 20',
-    createdAt: new Date('2024-07-20')
+    createdAt: new Date('2024-07-20'),
   },
   {
     id: 'mem-2',
     content: 'User is learning React and TypeScript',
     category: 'personal',
     source: 'Chat on July 19',
-    createdAt: new Date('2024-07-19')
+    createdAt: new Date('2024-07-19'),
   },
   {
     id: 'mem-3',
     content: "User's name is not yet known",
     category: 'personal',
     source: 'Auto-detected',
-    createdAt: new Date()
+    createdAt: new Date(),
   },
   {
     id: 'mem-4',
     content: 'Prefers dark mode always',
     category: 'preference',
     source: 'Settings',
-    createdAt: new Date()
-  }
+    createdAt: new Date(),
+  },
 ];
 
 const getInitialFiles = (): UploadedFile[] => [
@@ -119,29 +122,29 @@ const getInitialFiles = (): UploadedFile[] => [
     name: 'project-brief.pdf',
     size: 245000,
     type: 'application/pdf',
-    uploadedAt: new Date('2024-07-18')
+    uploadedAt: new Date('2024-07-18'),
   },
   {
     id: 'file-2',
     name: 'design-notes.txt',
     size: 4200,
     type: 'text/plain',
-    uploadedAt: new Date('2024-07-19')
+    uploadedAt: new Date('2024-07-19'),
   },
   {
     id: 'file-3',
     name: 'logo-draft.png',
     size: 89000,
     type: 'image/png',
-    uploadedAt: new Date('2024-07-20')
-  }
+    uploadedAt: new Date('2024-07-20'),
+  },
 ];
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguageState] = useState<Language>(() => {
     return (localStorage.getItem('roy_language') as Language) || 'en';
   });
-  
+
   const [accentColor, setAccentColorState] = useState<string>(() => {
     return localStorage.getItem('roy_accent') || defaultColors.blue;
   });
@@ -151,12 +154,15 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        return parsed.map((m: any) => ({ ...m, timestamp: new Date(m.timestamp) }));
-      } catch (e) {
-        return getInitialMessages(language);
+        return parsed.map((m: Message & { timestamp: string }) => ({
+          ...m,
+          timestamp: new Date(m.timestamp),
+        }));
+      } catch {
+        return getInitialMessages('en');
       }
     }
-    return getInitialMessages(language);
+    return getInitialMessages('en');
   });
 
   const [memories, setMemories] = useState<MemoryEntry[]>(() => {
@@ -164,8 +170,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        return parsed.map((m: any) => ({ ...m, createdAt: new Date(m.createdAt) }));
-      } catch (e) {
+        return parsed.map((m: MemoryEntry & { createdAt: string }) => ({
+          ...m,
+          createdAt: new Date(m.createdAt),
+        }));
+      } catch {
         return getInitialMemories();
       }
     }
@@ -177,8 +186,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        return parsed.map((f: any) => ({ ...f, uploadedAt: new Date(f.uploadedAt) }));
-      } catch (e) {
+        return parsed.map((f: UploadedFile & { uploadedAt: string }) => ({
+          ...f,
+          uploadedAt: new Date(f.uploadedAt),
+        }));
+      } catch {
         return getInitialFiles();
       }
     }
@@ -205,10 +217,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const addMessage = (msg: Omit<Message, 'id' | 'timestamp'>) => {
-    setMessages(prev => {
+    setMessages((prev) => {
       const newMessages = [
-        ...prev, 
-        { ...msg, id: Date.now().toString(), timestamp: new Date() }
+        ...prev,
+        { ...msg, id: Date.now().toString(), timestamp: new Date() },
       ];
       localStorage.setItem('roy_messages', JSON.stringify(newMessages));
       return newMessages;
@@ -222,10 +234,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const addMemory = (entry: Omit<MemoryEntry, 'id' | 'createdAt'>) => {
-    setMemories(prev => {
+    setMemories((prev) => {
       const newMemories = [
         ...prev,
-        { ...entry, id: `mem-${Date.now()}`, createdAt: new Date() }
+        { ...entry, id: `mem-${Date.now()}`, createdAt: new Date() },
       ];
       localStorage.setItem('roy_memories', JSON.stringify(newMemories));
       return newMemories;
@@ -233,18 +245,18 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const deleteMemory = (id: string) => {
-    setMemories(prev => {
-      const newMemories = prev.filter(m => m.id !== id);
+    setMemories((prev) => {
+      const newMemories = prev.filter((m) => m.id !== id);
       localStorage.setItem('roy_memories', JSON.stringify(newMemories));
       return newMemories;
     });
   };
 
   const addFile = (file: Omit<UploadedFile, 'id' | 'uploadedAt'>) => {
-    setFiles(prev => {
+    setFiles((prev) => {
       const newFiles = [
         ...prev,
-        { ...file, id: `file-${Date.now()}`, uploadedAt: new Date() }
+        { ...file, id: `file-${Date.now()}`, uploadedAt: new Date() },
       ];
       localStorage.setItem('roy_files', JSON.stringify(newFiles));
       return newFiles;
@@ -252,31 +264,33 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const deleteFile = (id: string) => {
-    setFiles(prev => {
-      const newFiles = prev.filter(f => f.id !== id);
+    setFiles((prev) => {
+      const newFiles = prev.filter((f) => f.id !== id);
       localStorage.setItem('roy_files', JSON.stringify(newFiles));
       return newFiles;
     });
   };
 
   return (
-    <AppContext.Provider value={{
-      language,
-      setLanguage,
-      accentColor,
-      setAccentColor,
-      messages,
-      addMessage,
-      clearMessages,
-      memories,
-      addMemory,
-      deleteMemory,
-      files,
-      addFile,
-      deleteFile,
-      sidebarOpen,
-      setSidebarOpen
-    }}>
+    <AppContext.Provider
+      value={{
+        language,
+        setLanguage,
+        accentColor,
+        setAccentColor,
+        messages,
+        addMessage,
+        clearMessages,
+        memories,
+        addMemory,
+        deleteMemory,
+        files,
+        addFile,
+        deleteFile,
+        sidebarOpen,
+        setSidebarOpen,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );
