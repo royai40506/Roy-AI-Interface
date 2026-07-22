@@ -29,16 +29,26 @@ export interface UploadedFile {
   preview?: string;
 }
 
-files: UploadedFile[];
-addFile: (file: Omit<UploadedFile, 'id' | 'uploadedAt'>) => void;
-deleteFile: (id: string) => void;
+export interface UploadedFile {
+  id: string;
+  name: string;
+  size: number;
+  type: string;
+  uploadedAt: Date;
+  preview?: string;
+}
 
-marketData: MarketData[];
-addMarketData: (data: Omit<MarketData, "id" | "createdAt">) => void;
-deleteMarketData: (id: string) => void;
+export interface AppContextType {
+  files: UploadedFile[];
+  addFile: (file: Omit<UploadedFile, "id" | "uploadedAt">) => void;
+  deleteFile: (id: string) => void;
 
-sidebarOpen: boolean;
-setSidebarOpen: (open: boolean) => void;
+  marketData: MarketData[];
+  addMarketData: (data: Omit<MarketData, "id" | "createdAt">) => void;
+  deleteMarketData: (id: string) => void;
+
+  sidebarOpen: boolean;
+  setSidebarOpen: (open: boolean) => void;
 }
 
 const defaultColors = {
@@ -204,10 +214,7 @@ const [marketData, setMarketData] = useState<MarketData[]>(() => {
 
   return [];
 });
-      }
-    }
-    return getInitialFiles();
-  });
+     
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -318,13 +325,6 @@ const deleteMarketData = (id: string) => {
   });
 };
 
-  const deleteFile = (id: string) => {
-    setFiles((prev) => {
-      const newFiles = prev.filter((f) => f.id !== id);
-      localStorage.setItem('roy_files', JSON.stringify(newFiles));
-      return newFiles;
-    });
-  };
 
   return (
     <AppContext.Provider
