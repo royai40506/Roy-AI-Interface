@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, MessageCircle, Brain, FolderOpen, Settings, X } from 'lucide-react';
+import { Home, MessageCircle, MessageSquare, Brain, FolderOpen, Settings, X } from 'lucide-react';
 import { useAppContext } from '@/context/AppContext';
 
 const navItems = [
