@@ -127,6 +127,7 @@ export default function FilesPage() {
         <input
           ref={fileInputRef}
           type="file"
+        accept=".png,.jpg,.jpeg,.webp,.csv,.xlsx,.xls,.pdf"
           className="hidden"
           onChange={handleFileUpload}
           data-testid="input-file-upload"
@@ -239,6 +240,10 @@ export default function FilesPage() {
             >
               {t.upload}
             </button>
+               className="mt-3 w-full px-6 py-3 rounded-xl border border-primary text-primary hover:bg-primary/10 font-medium"
+>
+  Manual Data Entry
+</button>
           </motion.div>
         )}
       </main>
