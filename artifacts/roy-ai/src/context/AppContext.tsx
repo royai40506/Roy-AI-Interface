@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-
+import type { MarketData } from "../types/market";
 export type MessageRole = 'user' | 'assistant';
 
 export interface Message {
@@ -29,22 +29,16 @@ export interface UploadedFile {
   preview?: string;
 }
 
-interface AppContextType {
-  language: Language;
-  setLanguage: (lang: Language) => void;
-  accentColor: string;
-  setAccentColor: (color: string) => void;
-  messages: Message[];
-  addMessage: (msg: Omit<Message, 'id' | 'timestamp'>) => void;
-  clearMessages: () => void;
-  memories: MemoryEntry[];
-  addMemory: (entry: Omit<MemoryEntry, 'id' | 'createdAt'>) => void;
-  deleteMemory: (id: string) => void;
-  files: UploadedFile[];
-  addFile: (file: Omit<UploadedFile, 'id' | 'uploadedAt'>) => void;
-  deleteFile: (id: string) => void;
-  sidebarOpen: boolean;
-  setSidebarOpen: (open: boolean) => void;
+files: UploadedFile[];
+addFile: (file: Omit<UploadedFile, 'id' | 'uploadedAt'>) => void;
+deleteFile: (id: string) => void;
+
+marketData: MarketData[];
+addMarketData: (data: Omit<MarketData, "id" | "createdAt">) => void;
+deleteMarketData: (id: string) => void;
+
+sidebarOpen: boolean;
+setSidebarOpen: (open: boolean) => void;
 }
 
 const defaultColors = {
@@ -182,16 +176,34 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const [files, setFiles] = useState<UploadedFile[]>(() => {
-    const saved = localStorage.getItem('roy_files');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        return parsed.map((f: UploadedFile & { uploadedAt: string }) => ({
-          ...f,
-          uploadedAt: new Date(f.uploadedAt),
-        }));
-      } catch {
-        return getInitialFiles();
+  const saved = localStorage.getItem('roy_files');
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      return parsed.map((f: UploadedFile & { uploadedAt: string }) => ({
+        ...f,
+        uploadedAt: new Date(f.uploadedAt),
+      }));
+    } catch {
+      return getInitialFiles();
+    }
+  }
+  return getInitialFiles();
+});
+
+const [marketData, setMarketData] = useState<MarketData[]>(() => {
+  const saved = localStorage.getItem("roy_market_data");
+
+  if (saved) {
+    try {
+      return JSON.parse(saved);
+    } catch {
+      return [];
+    }
+  }
+
+  return [];
+});
       }
     }
     return getInitialFiles();
@@ -253,15 +265,58 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const addFile = (file: Omit<UploadedFile, 'id' | 'uploadedAt'>) => {
-    setFiles((prev) => {
-      const newFiles = [
-        ...prev,
-        { ...file, id: `file-${Date.now()}`, uploadedAt: new Date() },
-      ];
-      localStorage.setItem('roy_files', JSON.stringify(newFiles));
-      return newFiles;
-    });
-  };
+  setFiles((prev) => {
+    const newFiles = [
+      ...prev,
+      { ...file, id: `file-${Date.now()}`, uploadedAt: new Date() },
+    ];
+    localStorage.setItem('roy_files', JSON.stringify(newFiles));
+    return newFiles;
+  });
+};
+
+const deleteFile = (id: string) => {
+  setFiles((prev) => {
+    const newFiles = prev.filter((f) => f.id !== id);
+    localStorage.setItem('roy_files', JSON.stringify(newFiles));
+    return newFiles;
+  });
+};
+
+const addMarketData = (
+  data: Omit<MarketData, "id" | "createdAt">
+) => {
+  setMarketData((prev) => {
+    const updated = [
+      ...prev,
+      {
+        ...data,
+        id: `market-${Date.now()}`,
+        createdAt: new Date().toISOString(),
+      },
+    ];
+
+    localStorage.setItem(
+      "roy_market_data",
+      JSON.stringify(updated)
+    );
+
+    return updated;
+  });
+};
+
+const deleteMarketData = (id: string) => {
+  setMarketData((prev) => {
+    const updated = prev.filter((x) => x.id !== id);
+
+    localStorage.setItem(
+      "roy_market_data",
+      JSON.stringify(updated)
+    );
+
+    return updated;
+  });
+};
 
   const deleteFile = (id: string) => {
     setFiles((prev) => {
@@ -274,22 +329,27 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AppContext.Provider
       value={{
-        language,
-        setLanguage,
-        accentColor,
-        setAccentColor,
-        messages,
-        addMessage,
-        clearMessages,
-        memories,
-        addMemory,
-        deleteMemory,
-        files,
-        addFile,
-        deleteFile,
-        sidebarOpen,
-        setSidebarOpen,
-      }}
+  language,
+  setLanguage,
+  accentColor,
+  setAccentColor,
+  messages,
+  addMessage,
+  clearMessages,
+  memories,
+  addMemory,
+  deleteMemory,
+  files,
+  addFile,
+  deleteFile,
+
+  marketData,
+  addMarketData,
+  deleteMarketData,
+
+  sidebarOpen,
+  setSidebarOpen,
+}}
     >
       {children}
     </AppContext.Provider>
