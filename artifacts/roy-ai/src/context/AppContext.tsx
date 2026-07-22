@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
 export type MessageRole = 'user' | 'assistant';
 
@@ -12,6 +12,23 @@ export interface Message {
 
 export type Language = 'en' | 'hi';
 
+export interface MemoryEntry {
+  id: string;
+  content: string;
+  category: 'personal' | 'preference' | 'fact' | 'conversation';
+  createdAt: Date;
+  source: string;
+}
+
+export interface UploadedFile {
+  id: string;
+  name: string;
+  size: number;
+  type: string;
+  uploadedAt: Date;
+  preview?: string;
+}
+
 interface AppContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
@@ -20,6 +37,14 @@ interface AppContextType {
   messages: Message[];
   addMessage: (msg: Omit<Message, 'id' | 'timestamp'>) => void;
   clearMessages: () => void;
+  memories: MemoryEntry[];
+  addMemory: (entry: Omit<MemoryEntry, 'id' | 'createdAt'>) => void;
+  deleteMemory: (id: string) => void;
+  files: UploadedFile[];
+  addFile: (file: Omit<UploadedFile, 'id' | 'uploadedAt'>) => void;
+  deleteFile: (id: string) => void;
+  sidebarOpen: boolean;
+  setSidebarOpen: (open: boolean) => void;
 }
 
 const defaultColors = {
@@ -34,6 +59,14 @@ const defaultContext: AppContextType = {
   messages: [],
   addMessage: () => {},
   clearMessages: () => {},
+  memories: [],
+  addMemory: () => {},
+  deleteMemory: () => {},
+  files: [],
+  addFile: () => {},
+  deleteFile: () => {},
+  sidebarOpen: false,
+  setSidebarOpen: () => {},
 };
 
 const AppContext = createContext<AppContextType>(defaultContext);
@@ -49,7 +82,62 @@ const getInitialMessages = (lang: Language): Message[] => [
   }
 ];
 
-export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+const getInitialMemories = (): MemoryEntry[] => [
+  {
+    id: 'mem-1',
+    content: 'User prefers concise answers',
+    category: 'preference',
+    source: 'Chat on July 20',
+    createdAt: new Date('2024-07-20')
+  },
+  {
+    id: 'mem-2',
+    content: 'User is learning React and TypeScript',
+    category: 'personal',
+    source: 'Chat on July 19',
+    createdAt: new Date('2024-07-19')
+  },
+  {
+    id: 'mem-3',
+    content: "User's name is not yet known",
+    category: 'personal',
+    source: 'Auto-detected',
+    createdAt: new Date()
+  },
+  {
+    id: 'mem-4',
+    content: 'Prefers dark mode always',
+    category: 'preference',
+    source: 'Settings',
+    createdAt: new Date()
+  }
+];
+
+const getInitialFiles = (): UploadedFile[] => [
+  {
+    id: 'file-1',
+    name: 'project-brief.pdf',
+    size: 245000,
+    type: 'application/pdf',
+    uploadedAt: new Date('2024-07-18')
+  },
+  {
+    id: 'file-2',
+    name: 'design-notes.txt',
+    size: 4200,
+    type: 'text/plain',
+    uploadedAt: new Date('2024-07-19')
+  },
+  {
+    id: 'file-3',
+    name: 'logo-draft.png',
+    size: 89000,
+    type: 'image/png',
+    uploadedAt: new Date('2024-07-20')
+  }
+];
+
+export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguageState] = useState<Language>(() => {
     return (localStorage.getItem('roy_language') as Language) || 'en';
   });
@@ -70,6 +158,34 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }
     return getInitialMessages(language);
   });
+
+  const [memories, setMemories] = useState<MemoryEntry[]>(() => {
+    const saved = localStorage.getItem('roy_memories');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        return parsed.map((m: any) => ({ ...m, createdAt: new Date(m.createdAt) }));
+      } catch (e) {
+        return getInitialMemories();
+      }
+    }
+    return getInitialMemories();
+  });
+
+  const [files, setFiles] = useState<UploadedFile[]>(() => {
+    const saved = localStorage.getItem('roy_files');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        return parsed.map((f: any) => ({ ...f, uploadedAt: new Date(f.uploadedAt) }));
+      } catch (e) {
+        return getInitialFiles();
+      }
+    }
+    return getInitialFiles();
+  });
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Apply accent color to document root
   useEffect(() => {
@@ -105,6 +221,44 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     localStorage.setItem('roy_messages', JSON.stringify(initial));
   };
 
+  const addMemory = (entry: Omit<MemoryEntry, 'id' | 'createdAt'>) => {
+    setMemories(prev => {
+      const newMemories = [
+        ...prev,
+        { ...entry, id: `mem-${Date.now()}`, createdAt: new Date() }
+      ];
+      localStorage.setItem('roy_memories', JSON.stringify(newMemories));
+      return newMemories;
+    });
+  };
+
+  const deleteMemory = (id: string) => {
+    setMemories(prev => {
+      const newMemories = prev.filter(m => m.id !== id);
+      localStorage.setItem('roy_memories', JSON.stringify(newMemories));
+      return newMemories;
+    });
+  };
+
+  const addFile = (file: Omit<UploadedFile, 'id' | 'uploadedAt'>) => {
+    setFiles(prev => {
+      const newFiles = [
+        ...prev,
+        { ...file, id: `file-${Date.now()}`, uploadedAt: new Date() }
+      ];
+      localStorage.setItem('roy_files', JSON.stringify(newFiles));
+      return newFiles;
+    });
+  };
+
+  const deleteFile = (id: string) => {
+    setFiles(prev => {
+      const newFiles = prev.filter(f => f.id !== id);
+      localStorage.setItem('roy_files', JSON.stringify(newFiles));
+      return newFiles;
+    });
+  };
+
   return (
     <AppContext.Provider value={{
       language,
@@ -113,7 +267,15 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       setAccentColor,
       messages,
       addMessage,
-      clearMessages
+      clearMessages,
+      memories,
+      addMemory,
+      deleteMemory,
+      files,
+      addFile,
+      deleteFile,
+      sidebarOpen,
+      setSidebarOpen
     }}>
       {children}
     </AppContext.Provider>
