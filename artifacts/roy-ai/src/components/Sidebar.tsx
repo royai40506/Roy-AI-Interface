@@ -5,11 +5,12 @@ import { Home, MessageCircle, Brain, FolderOpen, Settings, X } from 'lucide-reac
 import { useAppContext } from '@/context/AppContext';
 
 const navItems = [
-  { labelEN: 'Home', labelHI: 'होम', icon: Home, route: '/' },
-  { labelEN: 'Chat', labelHI: 'चैट', icon: MessageCircle, route: '/chat' },
-  { labelEN: 'Memory', labelHI: 'मेमोरी', icon: Brain, route: '/memory' },
-  { labelEN: 'Files', labelHI: 'फ़ाइलें', icon: FolderOpen, route: '/files' },
-  { labelEN: 'Settings', labelHI: 'सेटिंग्स', icon: Settings, route: '/settings' },
+  { labelEN: 'Home', labelHI: 'होम', icon: Home, path: '/' },
+  { labelEN: 'Chat', labelHI: 'चैट', icon: MessageSquare, path: '/chat' },
+  { labelEN: 'Memory', labelHI: 'मेमोरी', icon: Brain, path: '/memory' },
+  { labelEN: 'Files', labelHI: 'फ़ाइलें', icon: FolderOpen, path: '/files' },
+  { labelEN: 'Market', labelHI: 'मार्केट', icon: FolderOpen, path: '/market' },
+  { labelEN: 'Settings', labelHI: 'सेटिंग्स', icon: Settings, path: '/settings' },
 ];
 
 export default function Sidebar() {
