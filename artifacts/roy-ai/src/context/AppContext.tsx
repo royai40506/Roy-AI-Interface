@@ -17,6 +17,8 @@ interface AppContextType {
   setLanguage: (lang: Language) => void;
   accentColor: string;
   setAccentColor: (color: string) => void;
+  sidebarOpen: boolean;
+  setSidebarOpen: (open: boolean) => void;
   messages: Message[];
   addMessage: (msg: Omit<Message, 'id' | 'timestamp'>) => void;
   clearMessages: () => void;
@@ -31,6 +33,8 @@ const defaultContext: AppContextType = {
   setLanguage: () => {},
   accentColor: defaultColors.blue,
   setAccentColor: () => {},
+  sidebarOpen: false,
+  setSidebarOpen: () => {},
   messages: [],
   addMessage: () => {},
   clearMessages: () => {},
@@ -57,6 +61,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [accentColor, setAccentColorState] = useState<string>(() => {
     return localStorage.getItem('roy_accent') || defaultColors.blue;
   });
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [messages, setMessages] = useState<Message[]>(() => {
     const saved = localStorage.getItem('roy_messages');
@@ -111,6 +117,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       setLanguage,
       accentColor,
       setAccentColor,
+      sidebarOpen,
+      setSidebarOpen,
       messages,
       addMessage,
       clearMessages

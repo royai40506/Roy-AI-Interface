@@ -25,6 +25,7 @@ export default function InputBar({ onSend, disabled }: InputBarProps) {
   }, [text]);
 
   const handleSend = () => {
+    alert("SEND BUTTON WORKING");
     if ((!text.trim() && !attachedFile) || disabled) return;
     onSend(text.trim(), attachedFile || undefined);
     setText('');

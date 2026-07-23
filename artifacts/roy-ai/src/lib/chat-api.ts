@@ -26,7 +26,7 @@ export interface StreamChatOptions {
 function apiBase(): string {
   // In production the backend is co-served under /api.
   // In Vite dev mode the proxy rewrites /api → api-server.
-  return "/api";
+  return "https://roy-ai-interface.onrender.com/api";
 }
 
 export async function streamChat(opts: StreamChatOptions): Promise<void> {
