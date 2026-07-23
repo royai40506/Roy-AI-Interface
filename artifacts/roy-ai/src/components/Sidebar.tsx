@@ -88,18 +88,18 @@ export default function Sidebar() {
               <div className="space-y-1">
                 {navItems.map((item, index) => {
                   const Icon = item.icon;
-                  const isActive = location === item.route;
+                  const isActive = location === item.path;
                   const label = language === 'en' ? item.labelEN : item.labelHI;
 
                   return (
                     <motion.div
-                      key={item.route}
+                      key={item.path}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05, duration: 0.2 }}
                     >
                       <Link
-                        href={item.route}
+                        href={item.path}
                         className={`
                           relative flex items-center gap-3 h-[52px] px-4 rounded-xl transition-all
                           ${isActive 
@@ -107,7 +107,7 @@ export default function Sidebar() {
                             : 'text-muted-foreground hover:bg-white/4 hover:text-foreground'
                           }
                         `}
-                        data-testid={`link-nav-${item.route.slice(1) || 'home'}`}
+                        data-testid={`link-nav-${item.path.slice(1) || 'home'}`}
                       >
                         <Icon className="w-5 h-5 flex-shrink-0" />
                         <span className="text-[15px]">{label}</span>
