@@ -12,23 +12,6 @@ export interface Message {
 
 export type Language = 'en' | 'hi';
 
-export interface UploadedFile {
-  id: string;
-  name: string;
-  size: number;
-  type: string;
-  uploadedAt: Date;
-}
-
-export interface MemoryEntry {
-  id: string;
-  content: string;
-  category: 'personal' | 'preference' | 'fact' | 'conversation';
-  source: string;
-  createdAt: Date;
-}
-
-
 interface AppContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
@@ -36,15 +19,6 @@ interface AppContextType {
   setAccentColor: (color: string) => void;
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
-
-  files: UploadedFile[];
-  addFile: (file: Omit<UploadedFile,'id'|'uploadedAt'>) => void;
-  deleteFile: (id:string)=>void;
-
-  memories: MemoryEntry[];
-  addMemory: (memory: Omit<MemoryEntry,'id'|'createdAt'>) => void;
-  deleteMemory: (id:string)=>void;
-
   messages: Message[];
   addMessage: (msg: Omit<Message, 'id' | 'timestamp'>) => void;
   clearMessages: () => void;
@@ -61,15 +35,6 @@ const defaultContext: AppContextType = {
   setAccentColor: () => {},
   sidebarOpen: false,
   setSidebarOpen: () => {},
-
-  files: [],
-  addFile: () => {},
-  deleteFile: () => {},
-
-  memories: [],
-  addMemory: () => {},
-  deleteMemory: () => {},
-
   messages: [],
   addMessage: () => {},
   clearMessages: () => {},
@@ -98,25 +63,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   });
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-const [files, setFiles] = useState<UploadedFile[]>(() => {
-  const saved = localStorage.getItem('roy_files');
-  if (!saved) return [];
-  try {
-    return JSON.parse(saved).map((f:any)=>({...f, uploadedAt:new Date(f.uploadedAt)}));
-  } catch {
-    return [];
-  }
-});
-const [memories, setMemories] = useState<MemoryEntry[]>(() => {
-  const saved = localStorage.getItem('roy_memories');
-  if (!saved) return [];
-  try {
-    return JSON.parse(saved).map((m:any)=>({...m, createdAt:new Date(m.createdAt)}));
-  } catch {
-    return [];
-  }
-});
 
   const [messages, setMessages] = useState<Message[]>(() => {
     const saved = localStorage.getItem('roy_messages');
@@ -148,32 +94,7 @@ const [memories, setMemories] = useState<MemoryEntry[]>(() => {
     setAccentColorState(color);
   };
 
-  
-const addFile = (file: Omit<UploadedFile,'id'|'uploadedAt'>) => {
-  setFiles(prev => [...prev,{
-    ...file,
-    id: Date.now().toString(),
-    uploadedAt:new Date()
-  }]);
-};
-
-const deleteFile = (id:string)=>{
-  setFiles(prev=>prev.filter(f=>f.id!==id));
-};
-
-const addMemory = (memory: Omit<MemoryEntry,'id'|'createdAt'>) => {
-  setMemories(prev => [...prev,{
-    ...memory,
-    id: Date.now().toString(),
-    createdAt:new Date()
-  }]);
-};
-
-const deleteMemory = (id:string)=>{
-  setMemories(prev=>prev.filter(m=>m.id!==id));
-};
-
-const addMessage = (msg: Omit<Message, 'id' | 'timestamp'>) => {
+  const addMessage = (msg: Omit<Message, 'id' | 'timestamp'>) => {
     setMessages(prev => {
       const newMessages = [
         ...prev, 
@@ -198,15 +119,6 @@ const addMessage = (msg: Omit<Message, 'id' | 'timestamp'>) => {
       setAccentColor,
       sidebarOpen,
       setSidebarOpen,
-
-      files,
-      addFile,
-      deleteFile,
-
-      memories,
-      addMemory,
-      deleteMemory,
-
       messages,
       addMessage,
       clearMessages
