@@ -54,7 +54,7 @@ export default function RoyAvatarFX({
           filter: "blur(48px)",
           opacity:
             state === "speaking"
-              ? 0.95
+              ? [0.75, 1, 0.75]
               : state === "thinking"
               ? 0.80
               : state === "listening"
@@ -63,6 +63,21 @@ export default function RoyAvatarFX({
         }}
       
       />
+
+      {state === "speaking" && (
+        <motion.div
+          className="absolute w-96 h-96 rounded-full border border-cyan-300/30 pointer-events-none"
+          animate={{
+            scale: [1, 1.12, 1],
+            opacity: [0.2, 0.6, 0.2],
+          }}
+          transition={{
+            duration: 1,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      )}
 
       <motion.div
         className={`absolute w-80 h-80 rounded-full border ${ringClass}`}
@@ -118,6 +133,44 @@ export default function RoyAvatarFX({
         }}
       />
 
+      {state === "speaking" && (
+        <motion.div
+          className="absolute w-[28rem] h-[28rem] rounded-full border border-cyan-300/20 pointer-events-none"
+          animate={{
+            scale: [1, 1.18, 1],
+            opacity: [0.15, 0.45, 0.15],
+          }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      )}
+
+      {state === "speaking" && (
+        <>
+          {[0, 1, 2, 3].map((i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 rounded-full bg-cyan-300 shadow-[0_0_20px_rgba(34,211,238,1)]"
+              animate={{
+                y: [-20, -90, -20],
+                x: [0, i % 2 === 0 ? 25 : -25, 0],
+                opacity: [0, 1, 0],
+                scale: [0.8, 1.4, 0.8],
+              }}
+              transition={{
+                duration: 1.5 + i * 0.2,
+                repeat: Infinity,
+                delay: i * 0.25,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+        </>
+      )}
+
       <motion.img
         src={image}
         alt="Roy Avatar"
@@ -139,6 +192,10 @@ export default function RoyAvatarFX({
               : state === "speaking"
               ? [1, 1.05, 0.99, 1.04, 1]
               : 1,
+          y:
+            state === "speaking"
+              ? [0, -6, 0, 4, 0]
+              : [0, 0, 0],
         }}
         transition={{
           duration:
