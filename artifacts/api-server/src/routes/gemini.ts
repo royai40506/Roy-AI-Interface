@@ -90,4 +90,33 @@ router.post("/chat", async (req, res) => {
   }
 });
 
+
+// ── POST /api/gemini/tts ─────────────────────────────────────────────────────
+// Text-to-speech foundation endpoint.
+// Provider integration will be connected here.
+router.post("/tts", async (req, res) => {
+  const { text, language = "en" } = req.body as {
+    text?: string;
+    language?: string;
+  };
+
+  if (!text || !text.trim()) {
+    res.status(400).json({ error: "text is required" });
+    return;
+  }
+
+  try {
+    // TODO: Connect premium TTS provider here.
+    // Keeping API contract ready for frontend.
+    res.status(501).json({
+      error: "TTS provider not configured",
+      language,
+    });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "TTS error";
+    logger.error({ err }, "Gemini TTS error");
+    res.status(500).json({ error: message });
+  }
+});
+
 export default router;
