@@ -51,7 +51,15 @@ export default function RoyAvatarFX({
         style={{
           background:
             "radial-gradient(circle, rgba(34,211,238,0.22) 0%, rgba(34,211,238,0.10) 45%, transparent 75%)",
-          filter: "blur(40px)",
+          filter: "blur(48px)",
+          opacity:
+            state === "speaking"
+              ? 0.95
+              : state === "thinking"
+              ? 0.80
+              : state === "listening"
+              ? 0.70
+              : 0.55,
         }}
       
       />
@@ -113,7 +121,7 @@ export default function RoyAvatarFX({
       <motion.img
         src={image}
         alt="Roy Avatar"
-        className="w-72 h-72 object-contain select-none"
+        className="w-72 h-72 object-contain select-none drop-shadow-[0_0_30px_rgba(34,211,238,0.35)]"
         draggable={false}
         style={{
           rotateX,
