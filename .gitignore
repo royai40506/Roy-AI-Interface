@@ -47,3 +47,15 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Roy AI local backups
+*.bak
+*.backup
+*.original
+*.phase1.bak
+*.phase2.bak
+*.phase3.bak
+*.phase4.bak
+*.phase5.bak
+backup/
+node_modules.backup/

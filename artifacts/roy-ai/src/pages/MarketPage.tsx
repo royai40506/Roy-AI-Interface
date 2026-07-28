@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAppContext } from "@/context/AppContext";
 
 export default function MarketPage() {
-  const { marketData } = useAppContext();
+  const marketData = [];
 
   return (
   <div style={{ padding: "20px", maxWidth: "700px", margin: "0 auto" }}>

@@ -151,7 +151,6 @@ export default function ChatPage() {
                 content: streamingText,
                 timestamp: new Date(),
               }}
-              streaming
             />
           ) : isTyping ? (
             <TypingIndicator />

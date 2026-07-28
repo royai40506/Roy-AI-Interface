@@ -77,11 +77,6 @@
     "zod": "catalog:"
   },
   "dependencies": {
-    "@capacitor/core": "^8.4.2",
-    "@emotion/is-prop-valid": "^1.4.0",
-    "@pixiv/three-vrm": "^3.5.5",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.6.1",
-    "three": "^0.185.1"
+    "@capacitor/core": "^8.4.2"
   }
 }

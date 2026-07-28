@@ -3,7 +3,8 @@ import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import { Menu, MessageCircle, Brain, FolderOpen, Settings, ChevronDown } from 'lucide-react';
 import { useAppContext } from '@/context/AppContext';
-import AiOrb from '@/components/AiOrb';
+import RoyAvatarFX from "@/components/RoyAvatarFX";
+import royAvatar from '/avatar/roy-avatar-v2.png';
 
 type OrbState = 'idle' | 'listening' | 'thinking' | 'speaking';
 
@@ -126,12 +127,12 @@ export default function HomePage() {
       <main className="flex-1 overflow-y-auto pb-8">
         {/* Hero Section - Centered Orb */}
         <div className="flex flex-col items-center justify-center min-h-[50vh] px-4 pt-8 relative z-10">
-          <motion.div
+          <motion.div className="relative"
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
+            animate={{ opacity: 1, scale: [1,1.03,1], y:[0,-8,0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <AiOrb state={orbState} onClick={handleOrbClick} size="lg" />
+            <RoyAvatarFX image={royAvatar} state={orbState} onClick={handleOrbClick} />
           </motion.div>
 
           <motion.div
