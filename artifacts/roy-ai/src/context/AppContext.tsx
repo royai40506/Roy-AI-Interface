@@ -11,6 +11,7 @@ export interface Message {
 }
 
 export type Language = 'en' | 'hi';
+export type OrbState = 'idle' | 'listening' | 'thinking' | 'speaking';
 
 export interface UploadedFile {
   id: string;
@@ -30,6 +31,8 @@ export interface MemoryEntry {
 
 
 interface AppContextType {
+  orbState: OrbState;
+  setOrbState: (state: OrbState) => void;
   language: Language;
   setLanguage: (lang: Language) => void;
   accentColor: string;
@@ -55,6 +58,8 @@ const defaultColors = {
 };
 
 const defaultContext: AppContextType = {
+  orbState: 'idle',
+  setOrbState: () => {},
   language: 'en',
   setLanguage: () => {},
   accentColor: defaultColors.blue,
@@ -98,6 +103,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   });
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [orbState, setOrbState] = useState<OrbState>('idle');
 
 const [files, setFiles] = useState<UploadedFile[]>(() => {
   const saved = localStorage.getItem('roy_files');
@@ -198,6 +204,9 @@ const addMessage = (msg: Omit<Message, 'id' | 'timestamp'>) => {
       setAccentColor,
       sidebarOpen,
       setSidebarOpen,
+
+      orbState,
+      setOrbState,
 
       files,
       addFile,

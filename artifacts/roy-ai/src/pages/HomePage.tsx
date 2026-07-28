@@ -1,16 +1,30 @@
-import { useState } from 'react';
-import { Link } from 'wouter';
+import { useState, useMemo } from 'react';
+import { Link, useLocation } from 'wouter';
 import { motion } from 'framer-motion';
 import { Menu, MessageCircle, Brain, FolderOpen, Settings, ChevronDown } from 'lucide-react';
 import { useAppContext } from '@/context/AppContext';
 import RoyAvatarFX from "@/components/RoyAvatarFX";
 import royAvatar from '/avatar/roy-avatar-v2.png';
+import { toast } from "@/hooks/use-toast";
 
 type OrbState = 'idle' | 'listening' | 'thinking' | 'speaking';
 
 export default function HomePage() {
-  const { language, setLanguage, setSidebarOpen, messages } = useAppContext();
-  const [orbState, setOrbState] = useState<OrbState>('idle');
+  const { language, setLanguage, setSidebarOpen, messages, orbState, setOrbState } = useAppContext();
+  const [, navigate] = useLocation();
+  const [isVoiceActive, setIsVoiceActive] = useState(false);
+  
+  const SpeechRecognitionAPI =
+    typeof window !== "undefined"
+      ? ((window as any).SpeechRecognition ||
+         (window as any).webkitSpeechRecognition)
+      : null;
+
+const speechSupported = useMemo(() => {
+    return typeof window !== "undefined" &&
+      ("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
+  }, []);
+
 
   // Get greeting based on time of day
   const getGreeting = () => {
@@ -67,8 +81,65 @@ export default function HomePage() {
     .slice(-3)
     .reverse();
 
+
+  const startVoiceSession = async () => {
+    if (!speechSupported || !SpeechRecognitionAPI) {
+      toast({
+        title: "Voice Unsupported",
+        description: "Speech Recognition is not available in this browser.",
+      });
+      return;
+    }
+
+    const recognition = new SpeechRecognitionAPI();
+
+    recognition.lang = language === "en" ? "en-US" : "hi-IN";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
+      setIsVoiceActive(true);
+      setOrbState("listening");
+    };
+
+    recognition.onerror = () => {
+      setIsVoiceActive(false);
+      setOrbState("idle");
+      toast({
+        title: "Voice Error",
+        description: "Unable to start microphone.",
+      });
+    };
+
+    recognition.onresult = (event: any) => {
+      const spokenText = event.results[0][0].transcript;
+
+      console.log("ROY VOICE:", spokenText);
+
+      toast({
+        title: "Roy Heard",
+        description: spokenText,
+      });
+
+      window.dispatchEvent(
+        new CustomEvent("roy-voice-input", {
+          detail: spokenText,
+        })
+      );
+    };
+
+    recognition.onend = () => {
+      setIsVoiceActive(false);
+      setOrbState("idle");
+    };
+
+    recognition.start();
+  };
+
   // Cycle orb states on tap
   const handleOrbClick = () => {
+    startVoiceSession();
+
     const states: OrbState[] = ['idle', 'listening', 'thinking', 'speaking'];
     const currentIndex = states.indexOf(orbState);
     setOrbState(states[(currentIndex + 1) % states.length]);

@@ -5,6 +5,50 @@ import MessageBubble from '@/components/MessageBubble';
 import TypingIndicator from '@/components/TypingIndicator';
 import InputBar from '@/components/InputBar';
 import { streamChat } from '@/lib/chat-api';
+import { generateVoice } from '@/lib/voice-api';
+
+
+// ── Browser TTS fallback ─────────────────────────────────────────────────────
+function speakRoy(text: string, language: string) {
+  console.log("ROY TTS TEXT:", text);
+  if (!("speechSynthesis" in window)) {
+    console.log("TTS not supported");
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+
+  const speak = () => {
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    utterance.lang =
+      language === "hi" ? "hi-IN" :
+      language === "mr" ? "mr-IN" :
+      "en-US";
+
+    utterance.rate = 1;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+
+    utterance.onstart = () => {
+      console.log("Roy voice started");
+    };
+
+    utterance.onerror = (e) => {
+      console.log("Roy voice error", e);
+    };
+
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const voices = window.speechSynthesis.getVoices();
+
+  if (voices.length === 0) {
+    window.speechSynthesis.onvoiceschanged = speak;
+  } else {
+    speak();
+  }
+}
 
 // ── Mock fallback responses ──────────────────────────────────────────────────
 const MOCK: Record<string, string[]> = {
@@ -33,9 +77,13 @@ function getMockResponse(language: string, index: number): string {
   return pool[index % pool.length]!;
 }
 
+function speakAssistant(text: string, language: string) {
+  speakRoy(text, language);
+}
+
 // ── Component ────────────────────────────────────────────────────────────────
 export default function ChatPage() {
-  const { messages, addMessage, language } = useAppContext();
+  const { messages, addMessage, language, setOrbState } = useAppContext();
 
   const [isTyping, setIsTyping] = useState(false);
   // Holds the text being streamed in real-time before it is committed to context
@@ -63,6 +111,7 @@ export default function ChatPage() {
       addMessage({ role: 'user', content, attachedFile });
 
       // 2. Start typing indicator
+      setOrbState("thinking");
       setIsTyping(true);
       setStreamingText('');
 
@@ -93,23 +142,37 @@ export default function ChatPage() {
             setIsTyping(false);
             setStreamingText('');
             if (full.trim()) {
+              setOrbState("speaking");
               addMessage({ role: 'assistant', content: full });
+
+              speakRoy(full, language);
+
+              generateVoice({
+                text: full,
+                language,
+              }).finally(() => {
+                setOrbState("idle");
+              });
             } else if (!usedStream) {
               // Backend returned empty — use mock
+              const reply = getMockResponse(language, mockIndexRef.current++);
               addMessage({
                 role: 'assistant',
-                content: getMockResponse(language, mockIndexRef.current++),
+                content: reply,
               });
+              speakAssistant(reply, language);
             }
           },
           onError: (_err) => {
             setIsTyping(false);
             setStreamingText('');
             // Silent fallback to mock
+            const reply = getMockResponse(language, mockIndexRef.current++);
             addMessage({
               role: 'assistant',
-              content: getMockResponse(language, mockIndexRef.current++),
+              content: reply,
             });
+            speakAssistant(reply, language);
           },
         });
       } catch {
@@ -123,6 +186,36 @@ export default function ChatPage() {
     },
     [isTyping, messages, language, addMessage],
   );
+
+
+  useEffect(() => {
+    const pending = sessionStorage.getItem("roy_voice_input");
+    if (!pending) return;
+
+    sessionStorage.removeItem("roy_voice_input");
+
+    setTimeout(() => {
+      handleSend(pending);
+    }, 300);
+  }, [handleSend]);
+
+
+
+
+  useEffect(() => {
+    const handler = (event: Event) => {
+      const spoken = (event as CustomEvent<string>).detail;
+      if (!spoken) return;
+      handleSend(spoken);
+    };
+
+    window.addEventListener("roy-voice-input", handler as EventListener);
+
+    return () => {
+      window.removeEventListener("roy-voice-input", handler as EventListener);
+    };
+  }, [handleSend]);
+
 
   return (
     <div className="flex flex-col h-full bg-background overflow-hidden relative">
