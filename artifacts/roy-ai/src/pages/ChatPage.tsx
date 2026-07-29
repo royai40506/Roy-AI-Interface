@@ -88,10 +88,14 @@ export default function ChatPage() {
   const [isTyping, setIsTyping] = useState(false);
   // Holds the text being streamed in real-time before it is committed to context
   const [streamingText, setStreamingText] = useState('');
+  const [ttsDebug, setTtsDebug] = useState('');
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const mockIndexRef = useRef(0);
   const abortRef = useRef<AbortController | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
 
   // Auto-scroll to bottom whenever messages / streaming text changes
   useEffect(() => {
@@ -145,11 +149,20 @@ export default function ChatPage() {
               setOrbState("speaking");
               addMessage({ role: 'assistant', content: full });
 
-              speakRoy(full, language);
+              // speakRoy(full, language); // disabled for Gemini TTS test
 
               generateVoice({
                 text: full,
                 language,
+              }).then((audio) => {
+                console.log("ROY TTS AUDIO:", audio ? "RECEIVED" : "EMPTY");
+                console.log("ROY TTS AUDIO TYPE:", typeof audio);
+                console.log("ROY TTS AUDIO SAMPLE:", audio?.slice?.(0, 50));
+                console.log("ROY TTS AUDIO VALUE:", JSON.stringify(audio)?.slice(0,100));
+                console.log("ROY TTS AUDIO LENGTH:", audio?.length);
+                setTtsDebug(
+                  `TYPE:${typeof audio} LENGTH:${audio?.length ?? 0}`
+                );
               }).finally(() => {
                 setOrbState("idle");
               });

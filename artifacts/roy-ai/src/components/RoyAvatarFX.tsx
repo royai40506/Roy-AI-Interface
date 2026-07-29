@@ -266,11 +266,11 @@ export default function RoyAvatarFX({
         <motion.div
           className="absolute top-[58%] w-16 h-8 rounded-full bg-cyan-300/20 blur-lg pointer-events-none"
           animate={{
-            scaleY: [0.45, 1.15, 0.75, 1.35, 0.45],
-            opacity: [0.12, 0.5, 0.25, 0.6, 0.12],
+            scaleY: [0.25, 0.75, 1.15, 0.45, 1.35, 0.25],
+            opacity: [0.1, 0.35, 0.55, 0.25, 0.6, 0.1],
           }}
           transition={{
-            duration: 0.42,
+            duration: 0.6,
             repeat: Infinity,
             ease: "easeInOut",
           }}
