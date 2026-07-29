@@ -56,9 +56,9 @@ export default function RoyAvatarFX({
             state === "speaking"
               ? [0.75, 1, 0.75]
               : state === "thinking"
-              ? 0.80
+              ? [0.55, 0.85, 0.55]
               : state === "listening"
-              ? 0.70
+              ? [0.55, 0.85, 0.55]
               : 0.55,
         }}
       
@@ -184,13 +184,13 @@ export default function RoyAvatarFX({
         animate={{
           scale:
             state === "idle"
-              ? [1, 1.015, 1]
+              ? [1, 1.025, 1.01, 1.025, 1]
               : state === "listening"
-              ? [1, 1.03, 1]
+              ? [1, 1.035, 1.01, 1.035, 1]
               : state === "thinking"
-              ? [1, 1.02, 1.01, 1.02, 1]
+              ? [1, 1.025, 1.01, 1.025, 1]
               : state === "speaking"
-              ? [1, 1.05, 0.99, 1.04, 1]
+              ? [1, 1.06, 0.99, 1.05, 1]
               : 1,
           y:
             state === "speaking"
@@ -200,12 +200,12 @@ export default function RoyAvatarFX({
         transition={{
           duration:
             state === "listening"
-              ? 1.2
+              ? 1.6
               : state === "thinking"
-              ? 2.2
+              ? 2.6
               : state === "speaking"
-              ? 0.8
-              : 4,
+              ? 1
+              : 5,
           repeat: Infinity,
           ease: "easeInOut",
         }}
