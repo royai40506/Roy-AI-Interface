@@ -222,12 +222,12 @@ export default function RoyAvatarFX({
         <motion.div
           className="absolute w-44 h-20 rounded-full bg-cyan-300/10 blur-2xl pointer-events-none"
           animate={{
-            scale: [1, 1.12, 1],
-            opacity: [0.15, 0.5, 0.15],
-            y: [0, -4, 0],
+            scale: [1, 1.16, 1],
+            opacity: [0.12, 0.55, 0.12],
+            y: [0, -5, 0],
           }}
           transition={{
-            duration: 0.9,
+            duration: 0.42,
             repeat: Infinity,
             ease: "easeInOut",
           }}
@@ -260,6 +260,22 @@ export default function RoyAvatarFX({
           ease: "easeInOut",
         }}
       />
+
+      {/* PHASE 4 - Talking mouth placeholder */}
+      {state === "speaking" && (
+        <motion.div
+          className="absolute top-[58%] w-16 h-8 rounded-full bg-cyan-300/20 blur-lg pointer-events-none"
+          animate={{
+            scaleY: [0.45, 1.15, 0.75, 1.35, 0.45],
+            opacity: [0.12, 0.5, 0.25, 0.6, 0.12],
+          }}
+          transition={{
+            duration: 0.42,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      )}
 
     </div>
   );
