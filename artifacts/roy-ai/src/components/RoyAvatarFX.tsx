@@ -56,9 +56,9 @@ export default function RoyAvatarFX({
             state === "speaking"
               ? [0.75, 1, 0.75]
               : state === "thinking"
-              ? [0.55, 0.85, 0.55]
+              ? [0.45, 0.75, 0.45]
               : state === "listening"
-              ? [0.55, 0.85, 0.55]
+              ? [0.55, 0.95, 0.55]
               : 0.55,
         }}
       
@@ -95,15 +95,19 @@ export default function RoyAvatarFX({
       <motion.div
         className="absolute w-72 h-72 rounded-full border border-cyan-300/20"
         animate={{
-          rotate: state === "thinking" ? 360 : 0,
+          rotate: state === "thinking" ? 360 : state === "listening" ? 180 : 0,
           opacity:
             state === "speaking"
               ? [0.35, 0.7, 0.35]
+              : state === "thinking"
+              ? [0.2, 0.5, 0.2]
+              : state === "listening"
+              ? [0.25, 0.45, 0.25]
               : 0.35,
         }}
         transition={{
           rotate: {
-            duration: 10,
+            duration: state === "thinking" ? 8 : 14,
             repeat: Infinity,
             ease: "linear",
           },
@@ -195,6 +199,8 @@ export default function RoyAvatarFX({
           y:
             state === "speaking"
               ? [0, -6, 0, 4, 0]
+              : state === "idle"
+              ? [0, -3, 0, 2, 0]
               : [0, 0, 0],
         }}
         transition={{
@@ -210,6 +216,51 @@ export default function RoyAvatarFX({
           ease: "easeInOut",
         }}
       />
+
+      {/* PHASE 3 - Speaking face reaction */}
+      {state === "speaking" && (
+        <motion.div
+          className="absolute w-44 h-20 rounded-full bg-cyan-300/10 blur-2xl pointer-events-none"
+          animate={{
+            scale: [1, 1.12, 1],
+            opacity: [0.15, 0.5, 0.15],
+            y: [0, -4, 0],
+          }}
+          transition={{
+            duration: 0.9,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      )}
+
+      {/* PHASE 3 - Blink / eye presence effect */}
+      <motion.div
+        className="absolute w-20 h-8 rounded-full bg-cyan-200/10 blur-xl pointer-events-none"
+        animate={{
+          opacity:
+            state === "speaking"
+              ? [0.25, 0.9, 0.25]
+              : state === "listening"
+              ? [0.2, 0.65, 0.2]
+              : state === "thinking"
+              ? [0.15, 0.45, 0.15]
+              : [0.08, 0.3, 0.08],
+        }}
+        transition={{
+          duration:
+            state === "speaking"
+              ? 1.4
+              : state === "listening"
+              ? 2
+              : state === "thinking"
+              ? 3
+              : 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
     </div>
   );
 }
