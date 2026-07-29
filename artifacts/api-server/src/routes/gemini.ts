@@ -1,10 +1,12 @@
 import { Router } from "express";
-import textToSpeech from "@google-cloud/text-to-speech";
+import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { logger } from "../lib/logger.js";
 
-const ttsClient = new textToSpeech.TextToSpeechClient();
 const router = Router();
+const elevenClient = new ElevenLabsClient({
+  apiKey: process.env["ELEVENLABS_API_KEY"],
+});
 
 // ── Gemini client (lazy – fails gracefully if key missing) ──────────────────
 function getGeminiClient() {
@@ -95,8 +97,7 @@ router.post("/chat", async (req, res) => {
 
 
 // ── POST /api/gemini/tts ─────────────────────────────────────────────────────
-// Text-to-speech foundation endpoint.
-// Provider integration will be connected here.
+// ElevenLabs TTS provider
 router.post("/tts", async (req, res) => {
   const { text, language = "en" } = req.body as {
     text?: string;
@@ -109,26 +110,27 @@ router.post("/tts", async (req, res) => {
   }
 
   try {
-    const [response] = await ttsClient.synthesizeSpeech({
-      input: { text },
-      voice: {
-        languageCode:
-          language === "hi" ? "hi-IN" :
-          language === "mr" ? "mr-IN" :
-          "en-US",
-        ssmlGender: "MALE",
-      },
-      audioConfig: {
-        audioEncoding: "MP3",
-      },
+    const audio = await elevenClient.textToSpeech.convert(
+      process.env["ELEVENLABS_VOICE_ID"]!,
+      {
+        text,
+        modelId: "eleven_multilingual_v2",
+        outputFormat: "mp3_44100_128",
+      }
+    );
+
+    const chunks: Buffer[] = [];
+    for await (const chunk of audio) {
+      chunks.push(Buffer.from(chunk));
+    }
+
+    res.json({
+      audio: Buffer.concat(chunks).toString("base64"),
+      language,
     });
-
-    const audio = response.audioContent?.toString("base64");
-
-    res.json({ audio, language });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "TTS error";
-    logger.error({ err }, "Gemini TTS error");
+    logger.error({ err }, "ElevenLabs TTS error");
     res.status(500).json({ error: message });
   }
 });
