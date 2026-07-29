@@ -161,7 +161,7 @@ export default function ChatPage() {
                 console.log("ROY TTS AUDIO VALUE:", JSON.stringify(audio)?.slice(0,100));
                 console.log("ROY TTS AUDIO LENGTH:", audio?.length);
                 setTtsDebug(
-                  `TYPE:${typeof audio} LENGTH:${audio?.length ?? 0}`
+                  "AUDIO CALLBACK WORKING"
                 );
               }).finally(() => {
                 setOrbState("idle");
@@ -263,6 +263,10 @@ export default function ChatPage() {
           ) : null}
         </div>
       </main>
+
+      <div className="px-4 py-2 text-xs text-cyan-300">
+        TEST DEBUG BOX | TTS:{ttsDebug || "waiting"}
+      </div>
 
       <InputBar onSend={handleSend} disabled={isTyping} />
     </div>

@@ -1,13 +1,16 @@
 import { Router } from "express";
+import textToSpeech from "@google-cloud/text-to-speech";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { logger } from "../lib/logger.js";
 
+const ttsClient = new textToSpeech.TextToSpeechClient();
 const router = Router();
 
 // ── Gemini client (lazy – fails gracefully if key missing) ──────────────────
 function getGeminiClient() {
   const key = process.env["GEMINI_API_KEY"];
   if (!key) throw new Error("GEMINI_API_KEY is not set");
+
   return new GoogleGenerativeAI(key);
 }
 
@@ -106,12 +109,23 @@ router.post("/tts", async (req, res) => {
   }
 
   try {
-    // TODO: Connect premium TTS provider here.
-    // Keeping API contract ready for frontend.
-    res.status(501).json({
-      error: "TTS provider not configured",
-      language,
+    const [response] = await ttsClient.synthesizeSpeech({
+      input: { text },
+      voice: {
+        languageCode:
+          language === "hi" ? "hi-IN" :
+          language === "mr" ? "mr-IN" :
+          "en-US",
+        ssmlGender: "MALE",
+      },
+      audioConfig: {
+        audioEncoding: "MP3",
+      },
     });
+
+    const audio = response.audioContent?.toString("base64");
+
+    res.json({ audio, language });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "TTS error";
     logger.error({ err }, "Gemini TTS error");
