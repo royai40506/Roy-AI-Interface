@@ -7,6 +7,7 @@
 export interface ChatMessage {
   role: "user" | "assistant";
   content: string;
+  image?: string;
 }
 
 export type StreamChunkHandler = (text: string) => void;
@@ -16,6 +17,7 @@ export type StreamErrorHandler = (err: string) => void;
 export interface StreamChatOptions {
   messages: ChatMessage[];
   language: string;
+  image?: string;
   onChunk: StreamChunkHandler;
   onDone: StreamDoneHandler;
   onError: StreamErrorHandler;
@@ -26,18 +28,19 @@ export interface StreamChatOptions {
 function apiBase(): string {
   // In production the backend is co-served under /api.
   // In Vite dev mode the proxy rewrites /api → api-server.
-  return "https://roy-ai-interface.onrender.com/api";
+  return "http://localhost:3000/api";
 }
 
 export async function streamChat(opts: StreamChatOptions): Promise<void> {
-  const { messages, language, onChunk, onDone, onError, signal } = opts;
+  const { messages, language, image, onChunk, onDone, onError, signal } = opts;
 
   let response: Response;
   try {
+  console.log("BODY SIZE =", JSON.stringify({ messages, language, image }).length);
     response = await fetch(`${apiBase()}/gemini/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages, language }),
+      body: JSON.stringify({ messages, language, image }),
       signal,
     });
   } catch (err) {
@@ -71,6 +74,7 @@ export async function streamChat(opts: StreamChatOptions): Promise<void> {
       buffer = lines.pop() ?? "";
 
       for (const line of lines) {
+          console.log("ROY SSE LINE:", line);
         if (!line.startsWith("data: ")) continue;
         const raw = line.slice(6).trim();
         if (!raw) continue;
@@ -90,6 +94,9 @@ export async function streamChat(opts: StreamChatOptions): Promise<void> {
           accumulated += parsed.content;
           onChunk(parsed.content);
         }
+          console.log("ROY DONE CALLING ONDONE", accumulated.length);
+        console.log("ROY STREAM DONE EVENT", parsed);
+          onChunk("___DONE_EVENT___");
         if (parsed.done) {
           onDone(accumulated);
           return;

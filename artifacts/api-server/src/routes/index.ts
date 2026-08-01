@@ -1,6 +1,6 @@
 import { Router, type IRouter } from "express";
 import healthRouter from "./health";
-import geminiRouter from "./gemini";
+import geminiRouter from "./groq-router";
 import predictionRouter from "./prediction";
 
 const router: IRouter = Router();

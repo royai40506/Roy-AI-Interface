@@ -8,12 +8,19 @@ export interface VoiceRequest {
   language?: string;
 }
 
+export interface VoiceResponse {
+  audio: string | null;
+  alignment?: unknown;
+}
+
 export async function generateVoice(
   request: VoiceRequest,
-): Promise<string | null> {
+): Promise<VoiceResponse | null> {
   try {
+    console.log("ROY GENERATE VOICE CALLED", request.text.length);
+
     const response = await fetch(
-      "https://roy-ai-interface.onrender.com/api/gemini/tts",
+      "http://localhost:3000/api/gemini/tts",
       {
         method: "POST",
         headers: {
@@ -29,7 +36,11 @@ export async function generateVoice(
 
     const data = await response.json();
 
-    return data.audio || null;
+    return {
+      audio: data.audio || null,
+      alignment: data.alignment || null,
+    };
+
   } catch {
     return null;
   }

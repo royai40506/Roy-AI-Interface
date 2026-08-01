@@ -1,14 +1,49 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
-import { useAppContext } from '@/context/AppContext';
-import ChatHeader from '@/components/ChatHeader';
-import MessageBubble from '@/components/MessageBubble';
-import TypingIndicator from '@/components/TypingIndicator';
-import InputBar from '@/components/InputBar';
-import { streamChat } from '@/lib/chat-api';
-import { generateVoice } from '@/lib/voice-api';
-
+import { useState, useRef, useEffect, useCallback } from "react";
+import { useAppContext } from "@/context/AppContext";
+import ChatHeader from "@/components/ChatHeader";
+import MessageBubble from "@/components/MessageBubble";
+import TypingIndicator from "@/components/TypingIndicator";
+import InputBar from "@/components/InputBar";
+import { streamChat } from "@/lib/chat-api";
+import { generateVoice } from "@/lib/voice-api";
 
 // ── Browser TTS fallback ─────────────────────────────────────────────────────
+function playBase64Audio(base64: string, setAudioLevel: (level: number) => void) {
+  try {
+    const audio = new Audio(`data:audio/mpeg;base64,${base64}`);
+    const ctx = new AudioContext();
+    const source = ctx.createMediaElementSource(audio);
+    const analyser = ctx.createAnalyser();
+    analyser.fftSize = 256;
+    source.connect(analyser);
+    analyser.connect(ctx.destination);
+    const data = new Uint8Array(analyser.frequencyBinCount);
+    let smoothLevel = 0;
+    const updateLevel = () => {
+      analyser.getByteFrequencyData(data);
+      const level = data.reduce((a, b) => a + b, 0) / data.length / 255;
+      setAudioLevel(level);
+      console.log("ROY AUDIO LEVEL:", level);
+      console.log("ROY AUDIO LEVEL:", level);
+      if (!audio.ended) requestAnimationFrame(updateLevel);
+      else setAudioLevel(0);
+    };
+    audio.volume = 1;
+    audio.onplay = () => {
+      ctx.resume();
+      console.log("ROY AUDIO PLAY START");
+      ctx.resume();
+      updateLevel();
+    };
+    audio.onerror = (e) => console.log("ROY AUDIO ERROR", e);
+    audio.play().catch((err) => {
+      console.log("ROY AUDIO PLAY BLOCKED:", err);
+    });
+  } catch (err) {
+    console.log("ROY AUDIO PLAY ERROR:", err);
+  }
+}
+
 function speakRoy(text: string, language: string) {
   console.log("ROY TTS TEXT:", text);
   if (!("speechSynthesis" in window)) {
@@ -22,9 +57,7 @@ function speakRoy(text: string, language: string) {
     const utterance = new SpeechSynthesisUtterance(text);
 
     utterance.lang =
-      language === "hi" ? "hi-IN" :
-      language === "mr" ? "mr-IN" :
-      "en-US";
+      language === "hi" ? "hi-IN" : language === "mr" ? "mr-IN" : "en-US";
 
     utterance.rate = 1;
     utterance.pitch = 1;
@@ -59,21 +92,21 @@ const MOCK: Record<string, string[]> = {
     "Fascinating! The future is collaborative — humans and AI thinking together. What else would you like to explore?",
   ],
   hi: [
-    'यह बहुत अच्छा सवाल है! मैं आपकी बात समझता हूं। हर सवाल का एक अच्छा जवाब होता है — आइए मिलकर सोचते हैं।',
-    'बिल्कुल सही! आपने जो पूछा वो बहुत महत्वपूर्ण है। मैं आपकी मदद के लिए हमेशा यहां हूं।',
-    'दिलचस्प! मैं इस पर सोच रहा हूं। ज्ञान और समझ साथ मिलकर बढ़ते हैं।',
-    'बहुत बढ़िया सवाल! AI और इंसान मिलकर बेहतर भविष्य बना सकते हैं।',
+    "यह बहुत अच्छा सवाल है! मैं आपकी बात समझता हूं। हर सवाल का एक अच्छा जवाब होता है — आइए मिलकर सोचते हैं।",
+    "बिल्कुल सही! आपने जो पूछा वो बहुत महत्वपूर्ण है। मैं आपकी मदद के लिए हमेशा यहां हूं।",
+    "दिलचस्प! मैं इस पर सोच रहा हूं। ज्ञान और समझ साथ मिलकर बढ़ते हैं।",
+    "बहुत बढ़िया सवाल! AI और इंसान मिलकर बेहतर भविष्य बना सकते हैं।",
   ],
   mr: [
-    'हा खूप चांगला प्रश्न आहे! मी तुमची मदत करण्यासाठी नेहमी इथे आहे।',
-    'अगदी बरोबर! तुम्ही जे विचारले ते खूप महत्त्वाचे आहे. आपण एकत्र विचार करूया.',
-    'रोचक प्रश्न! ज्ञान आणि समज एकत्र वाढतात. आणखी काय जाणून घ्यायचे आहे?',
-    'उत्तम! AI आणि माणूस मिळून एक चांगले भविष्य घडवू शकतात.',
+    "हा खूप चांगला प्रश्न आहे! मी तुमची मदत करण्यासाठी नेहमी इथे आहे।",
+    "अगदी बरोबर! तुम्ही जे विचारले ते खूप महत्त्वाचे आहे. आपण एकत्र विचार करूया.",
+    "रोचक प्रश्न! ज्ञान आणि समज एकत्र वाढतात. आणखी काय जाणून घ्यायचे आहे?",
+    "उत्तम! AI आणि माणूस मिळून एक चांगले भविष्य घडवू शकतात.",
   ],
 };
 
 function getMockResponse(language: string, index: number): string {
-  const pool = MOCK[language] ?? MOCK['en']!;
+  const pool = MOCK[language] ?? MOCK["en"]!;
   return pool[index % pool.length]!;
 }
 
@@ -83,19 +116,24 @@ function speakAssistant(text: string, language: string) {
 
 // ── Component ────────────────────────────────────────────────────────────────
 export default function ChatPage() {
-  const { messages, addMessage, language, setOrbState } = useAppContext();
+  const {
+    messages,
+    addMessage,
+    language,
+    setOrbState,
+    audioLevel,
+    setAudioLevel,
+    royAlignment,
+    setRoyAlignment,
+  } = useAppContext();
 
   const [isTyping, setIsTyping] = useState(false);
   // Holds the text being streamed in real-time before it is committed to context
-  const [streamingText, setStreamingText] = useState('');
-  const [ttsDebug, setTtsDebug] = useState('');
+  const [streamingText, setStreamingText] = useState("");
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const mockIndexRef = useRef(0);
   const abortRef = useRef<AbortController | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
 
   // Auto-scroll to bottom whenever messages / streaming text changes
   useEffect(() => {
@@ -105,26 +143,36 @@ export default function ChatPage() {
   }, [messages, isTyping, streamingText]);
 
   // Cleanup on unmount
-  useEffect(() => () => { abortRef.current?.abort(); }, []);
+  useEffect(
+    () => () => {
+      abortRef.current?.abort();
+    },
+    [],
+  );
 
   const handleSend = useCallback(
     async (content: string, attachedFile?: string) => {
       if (isTyping) return;
 
       // 1. Add user message
-      addMessage({ role: 'user', content, attachedFile });
+      addMessage({ role: "user", content, attachedFile });
 
       // 2. Start typing indicator
       setOrbState("thinking");
       setIsTyping(true);
-      setStreamingText('');
+      setStreamingText("");
 
       // Build history to send (exclude the just-added message since addMessage
       // is async via setState; we construct it directly here)
+      console.log("ROY HISTORY SIZE =", messages.length);
       const history = [
-        ...messages,
-        { role: 'user' as const, content, attachedFile },
-      ].map((m) => ({ role: m.role, content: m.content }));
+        ...messages.slice(-10),
+        { role: "user" as const, content, attachedFile },
+      ].map((m) => ({
+        role: m.role,
+        content: m.content,
+        attachedFile: (m as any).attachedFile,
+      }));
 
       // 3. Abort any prior in-flight request
       abortRef.current?.abort();
@@ -137,6 +185,7 @@ export default function ChatPage() {
         await streamChat({
           messages: history,
           language,
+          image: attachedFile,
           signal: controller.signal,
           onChunk: (chunk) => {
             usedStream = true;
@@ -144,62 +193,65 @@ export default function ChatPage() {
           },
           onDone: (full) => {
             setIsTyping(false);
-            setStreamingText('');
+            setStreamingText("");
             if (full.trim()) {
               setOrbState("speaking");
-              addMessage({ role: 'assistant', content: full });
+              addMessage({ role: "assistant", content: full });
 
-              // speakRoy(full, language); // disabled for Gemini TTS test
+              // Browser TTS disabled (using ElevenLabs only)
 
               generateVoice({
                 text: full,
                 language,
-              }).then((audio) => {
-                console.log("ROY TTS AUDIO:", audio ? "RECEIVED" : "EMPTY");
-                console.log("ROY TTS AUDIO TYPE:", typeof audio);
-                console.log("ROY TTS AUDIO SAMPLE:", audio?.slice?.(0, 50));
-                console.log("ROY TTS AUDIO VALUE:", JSON.stringify(audio)?.slice(0,100));
-                console.log("ROY TTS AUDIO LENGTH:", audio?.length);
-                setTtsDebug(
-                  "AUDIO CALLBACK WORKING"
-                );
-              }).finally(() => {
-                setOrbState("idle");
-              });
+              })
+                .then((result) => {
+                  console.log(
+                    "ROY TTS AUDIO:",
+                    result?.audio ? "RECEIVED" : "EMPTY",
+                  );
+
+                  console.log("ROY ALIGNMENT:", result?.alignment);
+
+                  setRoyAlignment(result?.alignment || null);
+
+                  if (result?.audio) {
+                    playBase64Audio(result.audio, setAudioLevel);
+                  }
+                })
+                .finally(() => {
+                  setOrbState("idle");
+                });
             } else if (!usedStream) {
               // Backend returned empty — use mock
               const reply = getMockResponse(language, mockIndexRef.current++);
               addMessage({
-                role: 'assistant',
+                role: "assistant",
                 content: reply,
               });
               speakAssistant(reply, language);
             }
           },
-          onError: (_err) => {
+          onError: (err) => {
             setIsTyping(false);
-            setStreamingText('');
-            // Silent fallback to mock
-            const reply = getMockResponse(language, mockIndexRef.current++);
+            setStreamingText("");
+
             addMessage({
-              role: 'assistant',
-              content: reply,
+              role: "assistant",
+              content: `Gemini Error: ${err}`,
             });
-            speakAssistant(reply, language);
           },
         });
       } catch {
         setIsTyping(false);
-        setStreamingText('');
+        setStreamingText("");
         addMessage({
-          role: 'assistant',
+          role: "assistant",
           content: getMockResponse(language, mockIndexRef.current++),
         });
       }
     },
     [isTyping, messages, language, addMessage],
   );
-
 
   useEffect(() => {
     const pending = sessionStorage.getItem("roy_voice_input");
@@ -211,9 +263,6 @@ export default function ChatPage() {
       handleSend(pending);
     }, 300);
   }, [handleSend]);
-
-
-
 
   useEffect(() => {
     const handler = (event: Event) => {
@@ -228,7 +277,6 @@ export default function ChatPage() {
       window.removeEventListener("roy-voice-input", handler as EventListener);
     };
   }, [handleSend]);
-
 
   return (
     <div className="flex flex-col h-full bg-background overflow-hidden relative">
@@ -252,8 +300,8 @@ export default function ChatPage() {
             <MessageBubble
               key="streaming"
               message={{
-                id: 'streaming',
-                role: 'assistant',
+                id: "streaming",
+                role: "assistant",
                 content: streamingText,
                 timestamp: new Date(),
               }}
@@ -263,10 +311,6 @@ export default function ChatPage() {
           ) : null}
         </div>
       </main>
-
-      <div className="px-4 py-2 text-xs text-cyan-300">
-        TEST DEBUG BOX | TTS:{ttsDebug || "waiting"}
-      </div>
 
       <InputBar onSend={handleSend} disabled={isTyping} />
     </div>

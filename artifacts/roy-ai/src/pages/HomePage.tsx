@@ -10,7 +10,7 @@ import { toast } from "@/hooks/use-toast";
 type OrbState = 'idle' | 'listening' | 'thinking' | 'speaking';
 
 export default function HomePage() {
-  const { language, setLanguage, setSidebarOpen, messages, orbState, setOrbState } = useAppContext();
+  const { language, setLanguage, setSidebarOpen, messages, orbState, setOrbState, audioLevel, royAlignment } = useAppContext();
   const [, navigate] = useLocation();
   const [isVoiceActive, setIsVoiceActive] = useState(false);
   
@@ -203,7 +203,7 @@ const speechSupported = useMemo(() => {
             animate={{ opacity: 1, scale: [1,1.03,1], y:[0,-8,0] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <RoyAvatarFX image={royAvatar} state={orbState} onClick={handleOrbClick} />
+            <RoyAvatarFX image={royAvatar} state={orbState} audioLevel={audioLevel} alignment={royAlignment} onClick={handleOrbClick} />
           </motion.div>
 
           <motion.div

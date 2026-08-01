@@ -44,8 +44,17 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
         >
           {message.attachedFile && (
             <div className={`flex items-center gap-2 mb-2 p-2 rounded-lg text-xs ${isUser ? 'bg-black/20' : 'bg-background'}`}>
-              <FileText className="w-4 h-4" />
-              <span className="truncate max-w-[150px] font-medium">{message.attachedFile}</span>
+              {message.attachedFile.startsWith("blob:") || message.attachedFile.startsWith("http") ? (
+                <img
+                  src={message.attachedFile}
+                  className="w-16 h-16 rounded-lg object-cover"
+                />
+              ) : (
+                <>
+                  <FileText className="w-4 h-4" />
+                  <span className="truncate max-w-[150px] font-medium">{message.attachedFile}</span>
+                </>
+              )}
             </div>
           )}
           

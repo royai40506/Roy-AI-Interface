@@ -59,3 +59,10 @@ Thumbs.db
 *.phase5.bak
 backup/
 node_modules.backup/
+
+# Local secrets
+artifacts/api-server/.env
+artifacts/api-server/.env.*
+
+artifacts/api-server/eleven-test.json
+artifacts/api-server/server.log

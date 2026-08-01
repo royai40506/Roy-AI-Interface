@@ -1,7 +1,8 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, Plus, FolderOpen, FileText, Image as ImageIcon, FileCode, Trash2 } from 'lucide-react';
+import { Menu, Plus, Camera, FolderOpen, FileText, Image as ImageIcon, FileCode, Trash2 } from 'lucide-react';
 import { useAppContext, type UploadedFile } from '@/context/AppContext';
+import { Camera as CapacitorCamera, CameraResultType, CameraSource } from '@capacitor/camera';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,6 +18,7 @@ import {
 export default function FilesPage() {
   const { language, setSidebarOpen, files, addFile, deleteFile } = useAppContext();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [cameraBusy, setCameraBusy] = useState(false);
 
   const t = {
     title: language === 'en' ? 'Files' : 'फ़ाइलें',
@@ -45,6 +47,7 @@ export default function FilesPage() {
       name: selectedFile.name,
       size: selectedFile.size,
       type: selectedFile.type || getFileExtension(selectedFile.name),
+      previewUrl: URL.createObjectURL(selectedFile),
     });
 
     // Reset input
@@ -94,6 +97,32 @@ export default function FilesPage() {
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   };
 
+  const handleCameraCapture = async () => {
+    if (cameraBusy) return;
+    setCameraBusy(true);
+    try {
+      const photo = await CapacitorCamera.getPhoto({
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Camera,
+        quality: 90,
+      });
+
+      if (!photo.webPath) return;
+
+      addFile({
+        name: `camera-${Date.now()}.jpg`,
+        size: 0,
+        type: "image/jpeg",
+        previewUrl: photo.webPath,
+      });
+
+      console.log('ROY CAMERA', photo.webPath);
+
+    } finally {
+      setCameraBusy(false);
+    }
+  };
+
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat(language === 'en' ? 'en-US' : 'hi-IN', {
       month: 'short',
@@ -123,6 +152,13 @@ export default function FilesPage() {
           data-testid="button-upload-file"
         >
           <Plus className="w-5 h-5" />
+        </button>
+        <button
+          onClick={handleCameraCapture}
+          className="w-10 h-10 ml-2 flex items-center justify-center rounded-full bg-cyan-600 hover:bg-cyan-500 text-white shadow-lg transition-all"
+          data-testid="button-camera"
+        >
+          <Camera className="w-5 h-5" />
         </button>
         <input
           ref={fileInputRef}
@@ -173,10 +209,17 @@ export default function FilesPage() {
                     data-testid={`card-file-${file.id}`}
                   >
                     {/* File Icon */}
-                    <div className={`flex-shrink-0 w-10 h-10 rounded-xl bg-background border border-border/30 flex items-center justify-center ${iconColor}`}>
-                      <FileIcon className="w-5 h-5" />
-                    </div>
-
+                    {file.previewUrl ? (
+                      <img
+                        src={file.previewUrl}
+                        alt={file.name}
+                        className="flex-shrink-0 w-10 h-10 rounded-xl object-cover border border-border/30"
+                      />
+                    ) : (
+                      <div className={`flex-shrink-0 w-10 h-10 rounded-xl bg-background border border-border/30 flex items-center justify-center ${iconColor}`}>
+                        <FileIcon className="w-5 h-5" />
+                      </div>
+                    )}
                     {/* File Info */}
                     <div className="flex-1 min-w-0">
                       <h3 className="text-sm font-medium text-foreground truncate">{file.name}</h3>

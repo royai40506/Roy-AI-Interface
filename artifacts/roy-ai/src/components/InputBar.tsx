@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Paperclip, Mic, Send, X } from 'lucide-react';
+import { Paperclip, Mic, Send, X, Camera, Image as ImageIcon } from 'lucide-react';
 import { useAppContext } from '@/context/AppContext';
+import { Camera as CapacitorCamera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface InputBarProps {
@@ -12,8 +13,11 @@ export default function InputBar({ onSend, disabled }: InputBarProps) {
   const { language } = useAppContext();
   const [text, setText] = useState('');
   const [attachedFile, setAttachedFile] = useState<string | null>(null);
+  const [attachedImageData, setAttachedImageData] = useState<string | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [cameraBusy, setCameraBusy] = useState(false);
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Auto-resize textarea
@@ -25,9 +29,8 @@ export default function InputBar({ onSend, disabled }: InputBarProps) {
   }, [text]);
 
   const handleSend = () => {
-    alert("SEND BUTTON WORKING");
     if ((!text.trim() && !attachedFile) || disabled) return;
-    onSend(text.trim(), attachedFile || undefined);
+    onSend(text.trim(), attachedImageData || attachedFile || undefined);
     setText('');
     setAttachedFile(null);
     if (textareaRef.current) {
@@ -45,11 +48,38 @@ export default function InputBar({ onSend, disabled }: InputBarProps) {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setAttachedFile(file.name);
+      setAttachedFile(URL.createObjectURL(file));
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result === "string") {
+          setAttachedImageData(reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
     }
     // Reset file input so same file can be selected again
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
+    }
+  };
+
+
+  const handleCameraCapture = async () => {
+    if (cameraBusy) return;
+    setCameraBusy(true);
+    try {
+      const photo = await CapacitorCamera.getPhoto({
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Camera,
+        quality: 90,
+      });
+
+      if (photo.webPath) {
+        setAttachedFile(photo.webPath);
+      }
+    } finally {
+      setCameraBusy(false);
     }
   };
 
@@ -79,7 +109,14 @@ export default function InputBar({ onSend, disabled }: InputBarProps) {
             className="mb-3 inline-flex items-center gap-2 bg-card border border-border/50 px-3 py-1.5 rounded-full shadow-sm"
           >
             <Paperclip className="w-3.5 h-3.5 text-primary" />
-            <span className="text-xs font-medium truncate max-w-[200px]">{attachedFile}</span>
+            {attachedFile.startsWith("blob:") || attachedFile.startsWith("http") ? (
+              <img
+                src={attachedFile}
+                className="w-10 h-10 rounded-lg object-cover"
+              />
+            ) : (
+              <span className="text-xs font-medium truncate max-w-[200px]">{attachedFile}</span>
+            )}
             <button 
               onClick={() => setAttachedFile(null)}
               className="ml-1 p-0.5 rounded-full hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors"
@@ -98,6 +135,7 @@ export default function InputBar({ onSend, disabled }: InputBarProps) {
             className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors mb-0.5"
             disabled={disabled}
             data-testid="button-attach"
+          onDoubleClick={handleCameraCapture}
           >
             <Paperclip className="w-5 h-5" />
           </button>
