@@ -37,6 +37,7 @@ export async function streamChat(opts: StreamChatOptions): Promise<void> {
   let response: Response;
   try {
   console.log("BODY SIZE =", JSON.stringify({ messages, language, image }).length);
+    console.log("ROY REQUEST =", { language, hasImage: !!image, messages: messages.length });
     response = await fetch(`${apiBase()}/gemini/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

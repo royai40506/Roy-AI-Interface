@@ -20,7 +20,7 @@ Strict language rules:
 - language "mr" -> respond only in Marathi`;
 
 router.post("/chat", async (req, res): Promise<void> => {
-  const { messages, language = "en" } = req.body;
+  const { messages, language = "en", image } = req.body;
 
   if (!Array.isArray(messages) || messages.length === 0) {
     res.status(400).json({ error: "messages array is required" });
@@ -36,6 +36,8 @@ router.post("/chat", async (req, res): Promise<void> => {
     res.write(`data: ${JSON.stringify(obj)}\n\n`);
 
   try {
+    console.log("HAS IMAGE =", !!image);
+
     const stream = await groq.chat.completions.create({
       model: MODEL,
       stream: true,
@@ -45,16 +47,36 @@ router.post("/chat", async (req, res): Promise<void> => {
           role: "system",
           content: SYSTEM_INSTRUCTION + "\nCurrent language: " + language,
         },
-        ...messages.map((m: any) => ({
+        ...messages.map((m: any, i: number) => ({
           role: m.role,
-          content: m.content,
+          content:
+            image &&
+            i === messages.length - 1 &&
+            m.role === "user"
+              ? [
+                  { type: "text", text: m.content },
+                  { type: "image_url", image_url: { url: image } },
+                ]
+              : m.content,
         })),
       ],
     });
 
+    let thinking = false;
+
     for await (const chunk of stream) {
-      const text = chunk.choices?.[0]?.delta?.content;
-      if (text) send({ content: text });
+      let text = chunk.choices?.[0]?.delta?.content ?? "";
+
+      if (!text) continue;
+
+      if (text.includes("<think>")) thinking = true;
+
+      if (thinking) {
+        if (text.includes("</think>")) thinking = false;
+        continue;
+      }
+
+      send({ content: text });
     }
 
     send({ done: true });

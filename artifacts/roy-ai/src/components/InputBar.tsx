@@ -66,24 +66,36 @@ export default function InputBar({ onSend, disabled }: InputBarProps) {
 
 
   const handleCameraCapture = async () => {
-    if (cameraBusy) return;
-    setCameraBusy(true);
-    try {
-      const photo = await CapacitorCamera.getPhoto({
-        resultType: CameraResultType.Uri,
-        source: CameraSource.Camera,
-        quality: 90,
-      });
+  if (cameraBusy) return;
+  setCameraBusy(true);
 
-      if (photo.webPath) {
-        setAttachedFile(photo.webPath);
-      }
-    } finally {
-      setCameraBusy(false);
+  try {
+    const photo = await CapacitorCamera.getPhoto({
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Camera,
+      quality: 90,
+    });
+
+    if (photo.webPath) {
+      setAttachedFile(photo.webPath);
+
+      const response = await fetch(photo.webPath);
+      const blob = await response.blob();
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result === "string") {
+          setAttachedImageData(reader.result);
+        }
+      };
+      reader.readAsDataURL(blob);
     }
-  };
+  } finally {
+    setCameraBusy(false);
+  }
+};
 
-  const handleMicPress = () => {
+const handleMicPress = () => {
     setIsRecording(true);
   };
 

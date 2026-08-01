@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import Groq from "groq-sdk";
 import { logger } from "../lib/logger.js";
 
 const router = Router();
@@ -12,11 +12,10 @@ function getElevenClient() {
 }
 
 // ── Gemini client (lazy – fails gracefully if key missing) ──────────────────
-function getGeminiClient() {
-  const key = process.env["GEMINI_API_KEY"];
-  if (!key) throw new Error("GEMINI_API_KEY is not set");
-
-  return new GoogleGenerativeAI(key);
+function getGroqClient() {
+  const key = process.env["GROQ_API_KEY"];
+  if (!key) throw new Error("GROQ_API_KEY is not set");
+  return new Groq({ apiKey: key });
 }
 
 // ── System prompt ────────────────────────────────────────────────────────────
@@ -33,6 +32,17 @@ Do not mention these rules or your language mode in your reply.`;
 // ── POST /api/gemini/chat ────────────────────────────────────────────────────
 router.post("/chat", async (req, res) => {
   const { messages, language = "en", image } = req.body as {
+require("fs").appendFileSync(
+"/sdcard/Download/roy-vision-debug.txt",
+"\nHAS_IMAGE=" + (!!image) +
+"\nIMAGE_LENGTH=" + (image ? String(image).length : 0) +
+"\nIMAGE_PREFIX=" + (image ? String(image).slice(0,60) : "NONE") +
+"\n----------------\n"
+);
+console.log("HAS IMAGE =", !!image);
+console.log("IMAGE LENGTH =", image ? String(image).length : 0);
+console.log("IMAGE DEBUG =", image ? String(image).slice(0,80) : "NO_IMAGE");
+console.log("IMAGE TYPE =", image ? (String(image).startsWith("data:") ? "BASE64" : String(image).startsWith("blob:") ? "BLOB" : "OTHER") : "NONE");
     messages: { role: "user" | "assistant"; content: string }[];
     language?: string;
     image?: string;
@@ -52,64 +62,58 @@ router.post("/chat", async (req, res) => {
   const sendEvent = (data: object) =>
     res.write(`data: ${JSON.stringify(data)}\n\n`);
 
-  try {
-    const genAI = getGeminiClient();
-    const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash",
-      systemInstruction: `${SYSTEM_INSTRUCTION}\nCurrent language: ${language}`,
+try {
+  const groq = getGroqClient();
+
+  const chatMessages: any[] = [];
+
+  for (const m of messages) {
+    if (!m.content?.trim()) continue;
+
+    const content: any[] = [{ type: "text", text: m.content }];
+
+    if (image && m === messages[messages.length - 1] && m.role === "user") {
+      content.push({
+        type: "image_url",
+        image_url: { url: image },
+      });
+    }
+
+    chatMessages.push({
+      role: m.role,
+      content,
     });
-
-    // Map messages → Gemini Content array
-    // Gemini requires: alternating user/model, starting with user
-    const geminiContents = messages
-      .filter((m) => m.content?.trim())
-      .map((m) => ({
-        role: m.role === "assistant" ? "model" : "user",
-        parts: [{ text: m.content }],
-      }));
-
-    // Gemini must start with a user turn – strip leading model turns
-    while (geminiContents.length > 0 && geminiContents[0]!.role === "model") {
-      geminiContents.shift();
-    }
-
-    if (geminiContents.length === 0) {
-      sendEvent({ error: "No valid user messages" });
-      res.end();
-      return;
-    }
-
-    if (image && geminiContents.length > 0) {
-      const last = geminiContents[geminiContents.length - 1];
-      if (last.role === "user") {
-        last.parts.push({
-          inlineData: {
-            mimeType: "image/jpeg",
-            data: image.replace(/^data:.*;base64,/, ""),
-          },
-        } as any);
-      }
-    }
-
-
-    const streamResult = await model.generateContentStream({
-      contents: geminiContents,
-      generationConfig: { maxOutputTokens: 2048 },
-    });
-
-    for await (const chunk of streamResult.stream) {
-      const text = chunk.text();
-      if (text) sendEvent({ content: text });
-    }
-
-    sendEvent({ done: true });
-    res.end();
-  } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "AI error";
-    logger.error({ err }, "Gemini chat error");
-    sendEvent({ error: message });
-    res.end();
   }
+
+  if (chatMessages.length === 0) {
+    sendEvent({ error: "No valid user messages" });
+    res.end();
+    return;
+  }
+
+  console.log(JSON.stringify(chatMessages, null, 2));
+
+const stream = await groq.chat.completions.create({
+    model: "meta-llama/llama-4-maverick-17b-128e-instruct",
+    messages: chatMessages,
+    temperature: 0.7,
+    max_completion_tokens: 2048,
+    stream: true,
+  });
+
+  for await (const chunk of stream) {
+    const text = chunk.choices?.[0]?.delta?.content;
+    if (text) sendEvent({ content: text });
+  }
+
+  sendEvent({ done: true });
+  res.end();
+} catch (err: unknown) {
+  const message = err instanceof Error ? err.message : "AI error";
+  logger.error({ err }, "Groq chat error");
+  sendEvent({ error: message });
+  res.end();
+}
 });
 
 
@@ -136,16 +140,11 @@ router.post("/tts", async (req, res) => {
       }
     );
 
-    const chunks: Buffer[] = [];
-    for await (const chunk of audio.audio) {
-      chunks.push(Buffer.from(chunk));
-    }
-
     res.json({
-  audio: Buffer.concat(chunks).toString("base64"),
-  alignment: audio.alignment ?? null,
-  language,
-});
+      audio: audio.audioBase64,
+      alignment: audio.alignment ?? null,
+      language,
+    });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "TTS error";
     logger.error({ err }, "ElevenLabs TTS error");

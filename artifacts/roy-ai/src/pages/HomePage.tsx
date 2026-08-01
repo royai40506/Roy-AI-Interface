@@ -185,11 +185,11 @@ const speechSupported = useMemo(() => {
         <h1 className="text-lg font-bold tracking-tight text-foreground">Roy AI</h1>
 
         <button
-          onClick={() => setLanguage(language === 'en' ? 'hi' : 'en')}
+          onClick={() => setLanguage(language === 'en' ? 'hi' : language === 'hi' ? 'mr' : 'en')}
           className="h-9 px-3 rounded-full bg-card/80 border border-border/50 hover:bg-card transition-colors flex items-center gap-1.5 text-sm font-medium text-foreground"
           data-testid="button-language-toggle"
         >
-          {language === 'en' ? 'EN' : 'हिं'}
+          {language === 'en' ? 'EN' : language === 'hi' ? 'हिं' : 'मरा'}
           <ChevronDown className="w-3 h-3 opacity-60" />
         </button>
       </header>

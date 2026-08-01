@@ -82,6 +82,7 @@ export default function SettingsPage() {
                 [
                   { code: 'en', label: 'English' },
                   { code: 'hi', label: 'हिंदी' },
+    { code: 'mr', label: 'मराठी' },
                   
                 ] as const
               ).map(({ code, label }) => (

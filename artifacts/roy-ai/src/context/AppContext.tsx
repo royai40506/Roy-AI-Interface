@@ -10,7 +10,7 @@ export interface Message {
   attachedFile?: string;
 }
 
-export type Language = 'en' | 'hi';
+export type Language = 'en' | 'hi' | 'mr';
 export type OrbState = 'idle' | 'listening' | 'thinking' | 'speaking';
 
 export interface UploadedFile {

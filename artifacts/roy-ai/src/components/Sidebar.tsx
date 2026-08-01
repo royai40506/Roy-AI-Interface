@@ -76,6 +76,17 @@ export default function Sidebar() {
                 >
                   <X className="w-5 h-5" />
                 </button>
+                <button
+                  onClick={() => setLanguage('mr')}
+                  className={`flex-1 h-8 rounded-lg text-xs font-medium transition-all ${
+                    language === 'mr'
+                      ? 'bg-primary text-primary-foreground shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                  data-testid="button-lang-mr"
+                >
+                  मराठी
+                </button>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
@@ -143,6 +154,17 @@ export default function Sidebar() {
                   data-testid="button-lang-hi"
                 >
                   हिंदी
+                </button>
+                <button
+                  onClick={() => setLanguage('mr')}
+                  className={`flex-1 h-8 rounded-lg text-xs font-medium transition-all ${
+                    language === 'mr'
+                      ? 'bg-primary text-primary-foreground shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                  data-testid="button-lang-mr"
+                >
+                  मराठी
                 </button>
               </div>
 
