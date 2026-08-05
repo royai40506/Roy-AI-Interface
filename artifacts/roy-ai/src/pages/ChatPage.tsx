@@ -6,11 +6,39 @@ import TypingIndicator from "@/components/TypingIndicator";
 import InputBar from "@/components/InputBar";
 import { streamChat } from "@/lib/chat-api";
 import { generateVoice } from "@/lib/voice-api";
+import { RoyDevice } from "@/lib/device-api";
+
+let currentAudio: HTMLAudioElement | null = null;
 
 // ── Browser TTS fallback ─────────────────────────────────────────────────────
 function playBase64Audio(base64: string, setAudioLevel: (level: number) => void) {
   try {
-    const audio = new Audio(`data:audio/mpeg;base64,${base64}`);
+    const audio = new Audio(`data:audio/wav;base64,${base64}`);
+
+    console.log("ROY AUDIO SRC LENGTH:", base64.length);
+
+    audio.onloadedmetadata = () => {
+      console.log("ROY AUDIO METADATA");
+    };
+
+    audio.oncanplay = () => {
+      console.log("ROY AUDIO CAN PLAY");
+    };
+
+    audio.onwaiting = () => {
+      console.log("ROY AUDIO WAITING");
+    };
+
+    audio.onstalled = () => {
+      console.log("ROY AUDIO STALLED");
+    };
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+
+    currentAudio = audio;
     const ctx = new AudioContext();
     const source = ctx.createMediaElementSource(audio);
     const analyser = ctx.createAnalyser();
@@ -32,9 +60,19 @@ function playBase64Audio(base64: string, setAudioLevel: (level: number) => void)
     audio.onplay = () => {
       ctx.resume();
       console.log("ROY AUDIO PLAY START");
-      ctx.resume();
       updateLevel();
     };
+    audio.onended = () => {
+      setAudioLevel(0);
+      if (currentAudio === audio) currentAudio = null;
+      ctx.close().catch(() => {});
+    };
+
+    audio.onpause = () => {
+      setAudioLevel(0);
+      if (ctx.state !== "closed") ctx.close().catch(() => {});
+    };
+
     audio.onerror = (e) => console.log("ROY AUDIO ERROR", e);
     audio.play().catch((err) => {
       console.log("ROY AUDIO PLAY BLOCKED:", err);
@@ -44,44 +82,8 @@ function playBase64Audio(base64: string, setAudioLevel: (level: number) => void)
   }
 }
 
-function speakRoy(text: string, language: string) {
-  console.log("ROY TTS TEXT:", text);
-  if (!("speechSynthesis" in window)) {
-    console.log("TTS not supported");
-    return;
-  }
 
-  window.speechSynthesis.cancel();
 
-  const speak = () => {
-    const utterance = new SpeechSynthesisUtterance(text);
-
-    utterance.lang =
-      language === "hi" ? "hi-IN" : language === "mr" ? "mr-IN" : "en-US";
-
-    utterance.rate = 1;
-    utterance.pitch = 1;
-    utterance.volume = 1;
-
-    utterance.onstart = () => {
-      console.log("Roy voice started");
-    };
-
-    utterance.onerror = (e) => {
-      console.log("Roy voice error", e);
-    };
-
-    window.speechSynthesis.speak(utterance);
-  };
-
-  const voices = window.speechSynthesis.getVoices();
-
-  if (voices.length === 0) {
-    window.speechSynthesis.onvoiceschanged = speak;
-  } else {
-    speak();
-  }
-}
 
 // ── Mock fallback responses ──────────────────────────────────────────────────
 const MOCK: Record<string, string[]> = {
@@ -110,10 +112,6 @@ function getMockResponse(language: string, index: number): string {
   return pool[index % pool.length]!;
 }
 
-function speakAssistant(text: string, language: string) {
-  speakRoy(text, language);
-}
-
 // ── Component ────────────────────────────────────────────────────────────────
 export default function ChatPage() {
   const {
@@ -131,9 +129,14 @@ export default function ChatPage() {
   // Holds the text being streamed in real-time before it is committed to context
   const [streamingText, setStreamingText] = useState("");
 
+const [brainAutomation, setBrainAutomation] = useState<any>(null);
+const [brainExecution, setBrainExecution] = useState<any>(null);
+const [brainPlan, setBrainPlan] = useState<any>(null);
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const mockIndexRef = useRef(0);
   const abortRef = useRef<AbortController | null>(null);
+const lastVoiceInputRef = useRef("");
 
   // Auto-scroll to bottom whenever messages / streaming text changes
   useEffect(() => {
@@ -187,6 +190,40 @@ export default function ChatPage() {
           language,
           image: attachedFile,
           signal: controller.signal,
+          onAutomation: async (automation) => {
+            console.log("ROY AUTOMATION:", automation);
+            setBrainAutomation(automation);
+
+            try {
+              switch (automation?.action) {
+                case "open_camera":
+                  await RoyDevice.openCamera();
+                  break;
+                case "open_settings":
+                  await RoyDevice.openSettings();
+                  break;
+                case "open_whatsapp":
+                  await RoyDevice.openWhatsApp();
+                  break;
+                case "flashlight_on":
+                  await RoyDevice.flashlightOn();
+                  break;
+                case "call_contact":
+                  await RoyDevice.callContact();
+                  break;
+              }
+            } catch (err) {
+              console.error("ROY DEVICE ERROR:", err);
+            }
+          },
+          onExecution: (execution) => {
+            console.log("ROY EXECUTION:", execution);
+            setBrainExecution(execution);
+          },
+          onPlan: (plan) => {
+            console.log("ROY PLAN:", plan);
+            setBrainPlan(plan);
+          },
           onChunk: (chunk) => {
             usedStream = true;
             setStreamingText((prev) => prev + chunk);
@@ -228,7 +265,22 @@ export default function ChatPage() {
                 role: "assistant",
                 content: reply,
               });
-              speakAssistant(reply, language);
+              setOrbState("speaking");
+
+              generateVoice({
+                text: reply,
+                language,
+              })
+                .then((result) => {
+                  setRoyAlignment(result?.alignment || null);
+
+                  if (result?.audio) {
+                    playBase64Audio(result.audio, setAudioLevel);
+                  }
+                })
+                .finally(() => {
+                  setOrbState("idle");
+                });
             }
           },
           onError: (err) => {
@@ -268,7 +320,17 @@ export default function ChatPage() {
     const handler = (event: Event) => {
       const spoken = (event as CustomEvent<string>).detail;
       if (!spoken) return;
+
+      if (lastVoiceInputRef.current === spoken) return;
+      lastVoiceInputRef.current = spoken;
+
       handleSend(spoken);
+
+      setTimeout(() => {
+        if (lastVoiceInputRef.current === spoken) {
+          lastVoiceInputRef.current = "";
+        }
+      }, 1000);
     };
 
     window.addEventListener("roy-voice-input", handler as EventListener);
@@ -277,6 +339,23 @@ export default function ChatPage() {
       window.removeEventListener("roy-voice-input", handler as EventListener);
     };
   }, [handleSend]);
+
+  useEffect(() => {
+    const stopHandler = () => {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentAudio = null;
+      }
+    };
+
+    window.addEventListener("roy-stop-audio", stopHandler);
+
+    return () => {
+      window.removeEventListener("roy-stop-audio", stopHandler);
+    };
+  }, []);
+
 
   return (
     <div className="flex flex-col h-full bg-background overflow-hidden relative">
@@ -291,6 +370,21 @@ export default function ChatPage() {
         ref={scrollRef}
       >
         <div className="max-w-3xl mx-auto flex flex-col min-h-full justify-end">
+
+          {(brainAutomation || brainExecution || brainPlan) && (
+            <div className="mb-4 rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-3 text-xs text-cyan-100">
+              {brainAutomation && (
+                <div><strong>Automation:</strong> <pre>{JSON.stringify(brainAutomation, null, 2)}</pre></div>
+              )}
+              {brainExecution && (
+                <div><strong>Execution:</strong> <pre>{JSON.stringify(brainExecution, null, 2)}</pre></div>
+              )}
+              {brainPlan && (
+                <div><strong>Plan:</strong> <pre>{JSON.stringify(brainPlan, null, 2)}</pre></div>
+              )}
+            </div>
+          )}
+
           {messages.map((msg) => (
             <MessageBubble key={msg.id} message={msg} />
           ))}

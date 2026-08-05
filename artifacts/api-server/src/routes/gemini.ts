@@ -136,13 +136,8 @@ router.post("/tts", async (req, res) => {
       }
     );
 
-    const chunks: Buffer[] = [];
-    for await (const chunk of audio.audio) {
-      chunks.push(Buffer.from(chunk));
-    }
-
     res.json({
-  audio: Buffer.concat(chunks).toString("base64"),
+      audio: audio.audioBase64,
   alignment: audio.alignment ?? null,
   language,
 });

@@ -13,6 +13,9 @@ export interface ChatMessage {
 export type StreamChunkHandler = (text: string) => void;
 export type StreamDoneHandler = (fullText: string) => void;
 export type StreamErrorHandler = (err: string) => void;
+export type AutomationHandler = (automation: any) => void;
+export type ExecutionHandler = (execution: any) => void;
+export type PlanHandler = (plan: any[]) => void;
 
 export interface StreamChatOptions {
   messages: ChatMessage[];
@@ -21,6 +24,9 @@ export interface StreamChatOptions {
   onChunk: StreamChunkHandler;
   onDone: StreamDoneHandler;
   onError: StreamErrorHandler;
+  onAutomation?: AutomationHandler;
+  onExecution?: ExecutionHandler;
+  onPlan?: PlanHandler;
   signal?: AbortSignal;
 }
 
@@ -32,13 +38,24 @@ function apiBase(): string {
 }
 
 export async function streamChat(opts: StreamChatOptions): Promise<void> {
-  const { messages, language, image, onChunk, onDone, onError, signal } = opts;
+  const {
+  messages,
+  language,
+  image,
+  onChunk,
+  onDone,
+  onError,
+  onAutomation,
+  onExecution,
+  onPlan,
+  signal
+} = opts;
 
   let response: Response;
   try {
   console.log("BODY SIZE =", JSON.stringify({ messages, language, image }).length);
     console.log("ROY REQUEST =", { language, hasImage: !!image, messages: messages.length });
-    response = await fetch(`${apiBase()}/gemini/chat`, {
+    response = await fetch(`${apiBase()}/groq/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages, language, image }),
@@ -91,6 +108,19 @@ export async function streamChat(opts: StreamChatOptions): Promise<void> {
           onError(parsed.error);
           return;
         }
+
+        if ((parsed as any).automation) {
+          onAutomation?.((parsed as any).automation);
+        }
+
+        if ((parsed as any).execution) {
+          onExecution?.((parsed as any).execution);
+        }
+
+        if ((parsed as any).plan) {
+          onPlan?.((parsed as any).plan);
+        }
+
         if (parsed.content) {
           accumulated += parsed.content;
           onChunk(parsed.content);

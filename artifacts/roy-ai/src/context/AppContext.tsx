@@ -1,3 +1,4 @@
+import { storageManager } from "../storage";
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 export type MessageRole = 'user' | 'assistant';
@@ -65,6 +66,10 @@ const defaultColors = {
 const defaultContext: AppContextType = {
   orbState: 'idle',
   setOrbState: () => {},
+  audioLevel: 0,
+  setAudioLevel: () => {},
+  royAlignment: null,
+  setRoyAlignment: () => {},
   language: 'en',
   setLanguage: () => {},
   accentColor: defaultColors.blue,
@@ -132,7 +137,8 @@ const [memories, setMemories] = useState<MemoryEntry[]>(() => {
 });
 
   const [messages, setMessages] = useState<Message[]>(() => {
-    const saved = localStorage.getItem('roy_messages');
+    const savedResult = storageManager.load();
+    const saved = savedResult.success ? JSON.stringify(savedResult.data) : null;
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -189,18 +195,25 @@ const deleteMemory = (id:string)=>{
 const addMessage = (msg: Omit<Message, 'id' | 'timestamp'>) => {
     setMessages(prev => {
       const newMessages = [
-        ...prev, 
+        ...prev,
         { ...msg, id: Date.now().toString(), timestamp: new Date() }
       ];
-      localStorage.setItem('roy_messages', JSON.stringify(newMessages));
-      return newMessages;
+
+      const sanitizedMessages = newMessages.slice(-30);
+
+      localStorage.setItem(
+        'roy_messages',
+        JSON.stringify(sanitizedMessages)
+      );
+
+      return sanitizedMessages;
     });
   };
 
-  const clearMessages = () => {
+const clearMessages = () => {
     const initial = getInitialMessages(language);
     setMessages(initial);
-    localStorage.setItem('roy_messages', JSON.stringify(initial));
+    storageManager.save(initial as any);
   };
 
   return (

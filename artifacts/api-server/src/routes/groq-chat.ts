@@ -2,6 +2,7 @@ import { Router } from "express";
 import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
 import Groq from "groq-sdk";
 import { logger } from "../lib/logger.js";
+import { generatePiperVoice } from "../services/piper.js";
 
 const router = Router();
 
@@ -32,17 +33,6 @@ Do not mention these rules or your language mode in your reply.`;
 // ── POST /api/gemini/chat ────────────────────────────────────────────────────
 router.post("/chat", async (req, res) => {
   const { messages, language = "en", image } = req.body as {
-require("fs").appendFileSync(
-"/sdcard/Download/roy-vision-debug.txt",
-"\nHAS_IMAGE=" + (!!image) +
-"\nIMAGE_LENGTH=" + (image ? String(image).length : 0) +
-"\nIMAGE_PREFIX=" + (image ? String(image).slice(0,60) : "NONE") +
-"\n----------------\n"
-);
-console.log("HAS IMAGE =", !!image);
-console.log("IMAGE LENGTH =", image ? String(image).length : 0);
-console.log("IMAGE DEBUG =", image ? String(image).slice(0,80) : "NO_IMAGE");
-console.log("IMAGE TYPE =", image ? (String(image).startsWith("data:") ? "BASE64" : String(image).startsWith("blob:") ? "BLOB" : "OTHER") : "NONE");
     messages: { role: "user" | "assistant"; content: string }[];
     language?: string;
     image?: string;
@@ -131,6 +121,17 @@ router.post("/tts", async (req, res) => {
   }
 
   try {
+    const piper = await generatePiperVoice(text);
+    if (piper) {
+      res.json({
+        audio: piper.audio,
+        alignment: null,
+        language,
+        provider: "piper",
+      });
+      return;
+    }
+
     const audio = await getElevenClient().textToSpeech.convertWithTimestamps(
       process.env["ELEVENLABS_VOICE_ID"]!,
       {

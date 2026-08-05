@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion } from 'framer-motion';
 import { Menu, MessageCircle, Brain, FolderOpen, Settings, ChevronDown } from 'lucide-react';
@@ -83,10 +83,25 @@ const speechSupported = useMemo(() => {
 
 
   const startVoiceSession = async () => {
+    if (isVoiceActive) return;
+
+    window.dispatchEvent(new CustomEvent("roy-stop-audio"));
+
     if (!speechSupported || !SpeechRecognitionAPI) {
       toast({
         title: "Voice Unsupported",
         description: "Speech Recognition is not available in this browser.",
+      });
+      return;
+    }
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      stream.getTracks().forEach(track => track.stop());
+    } catch {
+      toast({
+        title: "Microphone Permission",
+        description: "Please allow microphone access.",
       });
       return;
     }
@@ -126,6 +141,8 @@ const speechSupported = useMemo(() => {
           detail: spokenText,
         })
       );
+
+      recognition.stop();
     };
 
     recognition.onend = () => {
@@ -135,6 +152,18 @@ const speechSupported = useMemo(() => {
 
     recognition.start();
   };
+
+  useEffect(() => {
+    const handler = () => {
+      startVoiceSession();
+    };
+
+    window.addEventListener("roy-start-voice", handler);
+
+    return () => {
+      window.removeEventListener("roy-start-voice", handler);
+    };
+  }, []);
 
   // Cycle orb states on tap
   const handleOrbClick = () => {

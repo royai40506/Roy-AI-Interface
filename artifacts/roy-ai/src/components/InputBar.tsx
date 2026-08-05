@@ -96,14 +96,12 @@ export default function InputBar({ onSend, disabled }: InputBarProps) {
 };
 
 const handleMicPress = () => {
+    window.dispatchEvent(new CustomEvent("roy-start-voice"));
     setIsRecording(true);
   };
 
   const handleMicRelease = () => {
-    if (isRecording) {
-      setIsRecording(false);
-      setText((prev) => prev ? prev + ' 🎤 Voice message' : '🎤 Voice message');
-    }
+    setIsRecording(false);
   };
 
   const placeholder = language === 'en' ? 'Message Roy...' : 'Roy को संदेश करें...';

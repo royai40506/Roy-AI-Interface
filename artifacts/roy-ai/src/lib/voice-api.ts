@@ -20,7 +20,7 @@ export async function generateVoice(
     console.log("ROY GENERATE VOICE CALLED", request.text.length);
 
     const response = await fetch(
-      "http://localhost:3000/api/gemini/tts",
+      "http://localhost:3000/api/groq/tts",
       {
         method: "POST",
         headers: {
@@ -41,7 +41,8 @@ export async function generateVoice(
       alignment: data.alignment || null,
     };
 
-  } catch {
+  } catch (err) {
+    console.error("ROY TTS FETCH ERROR:", err);
     return null;
   }
 }

@@ -95,11 +95,11 @@ export default function RoyAvatarFX({
           filter: "blur(48px)",
           opacity:
             state === "speaking"
-              ? [0.75, 1, 0.75]
+              ? 1
               : state === "thinking"
-                ? [0.45, 0.75, 0.45]
+                ? 0.75
                 : state === "listening"
-                  ? [0.55, 0.95, 0.55]
+                  ? 0.95
                   : 0.55,
         }}
       />
