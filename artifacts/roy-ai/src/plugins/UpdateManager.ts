@@ -1,14 +1,14 @@
 import { Capacitor } from "@capacitor/core";
+import { Browser } from "@capacitor/browser";
 
 export async function startUpdate(url: string) {
   if (!url) return;
 
   if (Capacitor.isNativePlatform()) {
-    const { Plugins } = Capacitor as any;
-
-    if (Plugins?.RoyDevice?.startUpdate) {
-      return Plugins.RoyDevice.startUpdate({ url });
-    }
+    await Browser.open({
+      url,
+    });
+    return;
   }
 
   window.open(url, "_blank");
