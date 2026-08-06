@@ -2,8 +2,7 @@ name: Roy AI Android APK
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -13,51 +12,39 @@ jobs:
   build-apk:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    defaults:
+      run:
+        working-directory: artifacts/roy-ai
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: npm
+          node-version: "22"
 
-      - name: Install Dependencies
-        run: npm install
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
 
-      - name: Build Web
-        run: npm run build
+      - run: pnpm install
 
-      - name: Sync Capacitor
-        run: npx cap sync android
+      - run: pnpm build
 
-      - name: Make gradlew executable
-        run: chmod +x android/gradlew
+      - run: npx cap sync android
 
-      - name: Build APK
-        run: |
+      - run: chmod +x android/gradlew
+
+      - run: |
           cd android
           ./gradlew assembleDebug
 
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: Roy-AI-debug-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: latest
-          name: Roy AI Latest Build
-          files: android/app/build/outputs/apk/debug/app-debug.apk
-          prerelease: false
-          make_latest: true
+          path: artifacts/roy-ai/android/app/build/outputs/apk/debug/app-debug.apk
