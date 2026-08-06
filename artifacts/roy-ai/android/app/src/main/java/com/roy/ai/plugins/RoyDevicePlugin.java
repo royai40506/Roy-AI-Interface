@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.hardware.camera2.CameraManager;
 import android.content.Context;
 
+import android.content.ActivityNotFoundException;
+import android.os.Build;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
@@ -120,7 +122,20 @@ public class RoyDevicePlugin extends Plugin {
     }
 
 
-    @PermissionCallback
+    
+    @PluginMethod
+    public void startUpdate(PluginCall call) {
+        String url = call.getString("url", "");
+
+        JSObject ret = new JSObject();
+        ret.put("success", true);
+        ret.put("action", "start_update");
+        ret.put("url", url);
+
+        call.resolve(ret);
+    }
+
+@PermissionCallback
     private void cameraPermissionCallback(PluginCall call) {
         if (getPermissionState("camera") == PermissionState.GRANTED) {
             openCamera(call);
@@ -129,6 +144,7 @@ public class RoyDevicePlugin extends Plugin {
         }
     }
 
+    
     @PermissionCallback
     private void flashlightPermissionCallback(PluginCall call) {
         if (getPermissionState("camera") == PermissionState.GRANTED) {
