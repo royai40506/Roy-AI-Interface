@@ -1,58 +1,65 @@
-name: Build Roy AI APK
+name: Roy AI Android APK
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build-apk:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: artifacts/roy-ai
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
+        token: ${{ secrets.GITHUB_TOKEN }}
           distribution: temurin
-          java-version: 21
+          java-version: "17"
 
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          version: 11
+          node-version: "20"
+          cache: npm
 
       - name: Install Dependencies
-        run: pnpm install
+        run: npm install
 
       - name: Build Web
-        env:
-          PORT: 3000
-          BASE_PATH: /
-          API_PORT: 8080
-        run: pnpm build
+        run: npm run build
 
       - name: Sync Capacitor
         run: npx cap sync android
 
-      - name: Build Debug APK
-        working-directory: artifacts/roy-ai/android
-        run: ./gradlew assembleDebug
+      - name: Make gradlew executable
+        run: chmod +x android/gradlew
 
-      - name: Upload APK
+      - name: Build APK
+        run: |
+          cd android
+          ./gradlew assembleDebug
+
+      - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Roy-AI-Debug-APK
-          path: artifacts/roy-ai/android/app/build/outputs/apk/debug/app-debug.apk
+          name: Roy-AI-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: latest
+          name: Roy AI Latest Build
+          files: android/app/build/outputs/apk/debug/app-debug.apk
+          prerelease: false
+          make_latest: true
+# Force workflow refresh Thu Aug  6 09:17:55 IST 2026
