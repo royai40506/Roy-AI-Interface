@@ -20,7 +20,6 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-        token: ${{ secrets.GITHUB_TOKEN }}
           distribution: temurin
           java-version: "17"
 
@@ -56,10 +55,9 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: latest
           name: Roy AI Latest Build
           files: android/app/build/outputs/apk/debug/app-debug.apk
           prerelease: false
           make_latest: true
-# Force workflow refresh Thu Aug  6 09:17:55 IST 2026
