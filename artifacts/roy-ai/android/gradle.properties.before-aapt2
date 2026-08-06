@@ -5,3 +5,4 @@ org.gradle.daemon=true
 android.useAndroidX=true
 android.enableJetifier=true
 
+android.aapt2FromMavenOverride=/data/data/com.termux/files/home/Android/Sdk/build-tools/35.0.0/aapt2

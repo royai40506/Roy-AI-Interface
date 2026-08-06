@@ -1,0 +1,654 @@
+Initialized native services in: /data/data/com.termux/files/home/.gradle/native
+Initialized jansi services in: /data/data/com.termux/files/home/.gradle/native
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Starting process 'Gradle build daemon'. Working directory: /data/data/com.termux/files/home/.gradle/daemon/8.14.3 Command: /data/data/com.termux/files/usr/lib/jvm/java-21-openjdk/bin/java --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-opens=java.base/java.nio.charset=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.xml/javax.xml.namespace=ALL-UNNAMED -Xmx1536m -Dfile.encoding=UTF-8 -Duser.country -Duser.language=en -Duser.variant -cp /data/data/com.termux/files/home/.gradle/wrapper/dists/gradle-8.14.3-all/10utluxaxniiv4wxiphsi49nj/gradle-8.14.3/lib/gradle-daemon-main-8.14.3.jar org.gradle.launcher.daemon.bootstrap.GradleDaemon 8.14.3
+Successfully started process 'Gradle build daemon'
+An attempt to start the daemon took 4.966 secs.
+The client will now receive all logging from the daemon (pid: 11923). The daemon log file: /data/data/com.termux/files/home/.gradle/daemon/8.14.3/daemon-11923.out.log
+Daemon will be stopped at the end of the build 
+Using 6 worker leases.
+Received JVM installation metadata from '/data/data/com.termux/files/usr/lib/jvm/java-21-openjdk': {JAVA_HOME=/data/data/com.termux/files/usr/lib/jvm/java-21-openjdk, JAVA_VERSION=21.0.10, JAVA_VENDOR=Termux, RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=21.0.10, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=21.0.10, VM_VENDOR=Termux, OS_ARCH=aarch64}
+Watching the file system is configured to be enabled if available
+File system watching is inactive
+Starting Build
+Settings evaluated using settings file '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/settings.gradle'.
+Projects loaded. Root project using build file '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/build.gradle'.
+Included projects: [root project 'android', project ':app', project ':capacitor-android', project ':capacitor-camera', project ':capacitor-cordova-android-plugins']
+
+> Configure project :
+Evaluating root project 'android' using build file '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/build.gradle'.
+
+> Configure project :app
+Evaluating project ':app' using build file '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/app/build.gradle'.
+Using default execution profile
+google-services.json not found, google-services plugin not applied. Push Notifications won't work
+WARNING: Using flatDir should be avoided because it doesn't support any meta-data formats.
+
+> Configure project :capacitor-android
+Evaluating project ':capacitor-android' using build file '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/build.gradle'.
+Using default execution profile
+
+> Configure project :capacitor-camera
+Evaluating project ':capacitor-camera' using build file '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/build.gradle'.
+Using default execution profile
+Build e1c88813-881e-4b72-a39f-542db608b737 is started
+Using Kotlin Gradle Plugin gradle813 variant
+
+> Configure project :capacitor-cordova-android-plugins
+Evaluating project ':capacitor-cordova-android-plugins' using build file '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/build.gradle'.
+Using default execution profile
+WARNING: Using flatDir should be avoided because it doesn't support any meta-data formats.
+All projects evaluated.
+Task name matched 'assembleDebug'
+Selected primary task 'assembleDebug' from project :
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+Tasks to be executed: [task ':app:preBuild', task ':app:preDebugBuild', task ':app:mergeDebugNativeDebugMetadata', task ':app:javaPreCompileDebug', task ':capacitor-android:preBuild', task ':capacitor-android:preDebugBuild', task ':capacitor-android:writeDebugAarMetadata', task ':capacitor-camera:preBuild', task ':capacitor-camera:preDebugBuild', task ':capacitor-camera:writeDebugAarMetadata', task ':capacitor-cordova-android-plugins:preBuild', task ':capacitor-cordova-android-plugins:preDebugBuild', task ':capacitor-cordova-android-plugins:writeDebugAarMetadata', task ':app:checkDebugAarMetadata', task ':capacitor-android:processDebugNavigationResources', task ':capacitor-camera:processDebugNavigationResources', task ':capacitor-cordova-android-plugins:processDebugNavigationResources', task ':app:processDebugNavigationResources', task ':app:compileDebugNavigationResources', task ':app:generateDebugResValues', task ':capacitor-android:generateDebugResValues', task ':capacitor-android:generateDebugResources', task ':capacitor-android:packageDebugResources', task ':capacitor-camera:generateDebugResValues', task ':capacitor-camera:generateDebugResources', task ':capacitor-camera:packageDebugResources', task ':capacitor-cordova-android-plugins:generateDebugResValues', task ':capacitor-cordova-android-plugins:generateDebugResources', task ':capacitor-cordova-android-plugins:packageDebugResources', task ':app:mapDebugSourceSetPaths', task ':app:generateDebugResources', task ':app:mergeDebugResources', task ':app:packageDebugResources', task ':app:parseDebugLocalResources', task ':app:createDebugCompatibleScreenManifests', task ':app:extractDeepLinksDebug', task ':capacitor-android:extractDeepLinksDebug', task ':capacitor-android:processDebugManifest', task ':capacitor-camera:extractDeepLinksDebug', task ':capacitor-camera:processDebugManifest', task ':capacitor-cordova-android-plugins:extractDeepLinksDebug', task ':capacitor-cordova-android-plugins:processDebugManifest', task ':app:processDebugMainManifest', task ':app:processDebugManifest', task ':app:processDebugManifestForPackage', task ':capacitor-android:compileDebugLibraryResources', task ':capacitor-android:parseDebugLocalResources', task ':capacitor-android:generateDebugRFile', task ':capacitor-camera:compileDebugLibraryResources', task ':capacitor-camera:parseDebugLocalResources', task ':capacitor-camera:generateDebugRFile', task ':capacitor-cordova-android-plugins:compileDebugLibraryResources', task ':capacitor-cordova-android-plugins:parseDebugLocalResources', task ':capacitor-cordova-android-plugins:generateDebugRFile', task ':app:processDebugResources', task ':capacitor-android:javaPreCompileDebug', task ':capacitor-android:compileDebugJavaWithJavac', task ':capacitor-android:bundleLibCompileToJarDebug', task ':capacitor-camera:checkKotlinGradlePluginConfigurationErrors', task ':capacitor-camera:compileDebugKotlin', task ':capacitor-camera:javaPreCompileDebug', task ':capacitor-camera:compileDebugJavaWithJavac', task ':capacitor-camera:bundleLibCompileToJarDebug', task ':capacitor-cordova-android-plugins:javaPreCompileDebug', task ':capacitor-cordova-android-plugins:compileDebugJavaWithJavac', task ':capacitor-cordova-android-plugins:bundleLibCompileToJarDebug', task ':app:compileDebugJavaWithJavac', task ':app:mergeDebugShaders', task ':app:compileDebugShaders', task ':app:generateDebugAssets', task ':capacitor-android:mergeDebugShaders', task ':capacitor-android:compileDebugShaders', task ':capacitor-android:generateDebugAssets', task ':capacitor-android:mergeDebugAssets', task ':capacitor-camera:mergeDebugShaders', task ':capacitor-camera:compileDebugShaders', task ':capacitor-camera:generateDebugAssets', task ':capacitor-camera:mergeDebugAssets', task ':capacitor-cordova-android-plugins:mergeDebugShaders', task ':capacitor-cordova-android-plugins:compileDebugShaders', task ':capacitor-cordova-android-plugins:generateDebugAssets', task ':capacitor-cordova-android-plugins:mergeDebugAssets', task ':app:mergeDebugAssets', task ':app:compressDebugAssets', task ':capacitor-camera:bundleLibRuntimeToJarDebug', task ':capacitor-android:bundleLibRuntimeToJarDebug', task ':capacitor-cordova-android-plugins:bundleLibRuntimeToJarDebug', task ':app:desugarDebugFileDependencies', task ':app:dexBuilderDebug', task ':app:mergeDebugGlobalSynthetics', task ':app:processDebugJavaRes', task ':capacitor-android:processDebugJavaRes', task ':capacitor-camera:processDebugJavaRes', task ':capacitor-cordova-android-plugins:processDebugJavaRes', task ':app:mergeDebugJavaResource', task ':app:checkDebugDuplicateClasses', task ':app:mergeExtDexDebug', task ':capacitor-camera:bundleLibRuntimeToDirDebug', task ':capacitor-android:bundleLibRuntimeToDirDebug', task ':capacitor-cordova-android-plugins:bundleLibRuntimeToDirDebug', task ':app:mergeLibDexDebug', task ':app:mergeProjectDexDebug', task ':app:mergeDebugJniLibFolders', task ':capacitor-android:mergeDebugJniLibFolders', task ':capacitor-android:mergeDebugNativeLibs', task ':capacitor-android:copyDebugJniLibsProjectOnly', task ':capacitor-camera:mergeDebugJniLibFolders', task ':capacitor-camera:mergeDebugNativeLibs', task ':capacitor-camera:copyDebugJniLibsProjectOnly', task ':capacitor-cordova-android-plugins:mergeDebugJniLibFolders', task ':capacitor-cordova-android-plugins:mergeDebugNativeLibs', task ':capacitor-cordova-android-plugins:copyDebugJniLibsProjectOnly', task ':app:mergeDebugNativeLibs', task ':app:stripDebugDebugSymbols', task ':app:validateSigningDebug', task ':app:writeDebugAppMetadata', task ':app:writeDebugSigningConfigVersions', task ':app:packageDebug', task ':app:createDebugApkListingFileRedirect', task ':app:assembleDebug', task ':capacitor-android:checkDebugAarMetadata', task ':capacitor-android:stripDebugDebugSymbols', task ':capacitor-android:copyDebugJniLibsProjectAndLocalJars', task ':capacitor-android:extractDebugAnnotations', task ':capacitor-android:extractDeepLinksForAarDebug', task ':capacitor-android:mergeDebugGeneratedProguardFiles', task ':capacitor-android:mergeDebugConsumerProguardFiles', task ':capacitor-android:prepareDebugArtProfile', task ':capacitor-android:prepareLintJarForPublish', task ':capacitor-android:mergeDebugJavaResource', task ':capacitor-android:syncDebugLibJars', task ':capacitor-android:bundleDebugAar', task ':capacitor-android:assembleDebug', task ':capacitor-camera:checkDebugAarMetadata', task ':capacitor-camera:stripDebugDebugSymbols', task ':capacitor-camera:copyDebugJniLibsProjectAndLocalJars', task ':capacitor-camera:extractDebugAnnotations', task ':capacitor-camera:extractDeepLinksForAarDebug', task ':capacitor-camera:mergeDebugGeneratedProguardFiles', task ':capacitor-camera:mergeDebugConsumerProguardFiles', task ':capacitor-camera:prepareDebugArtProfile', task ':capacitor-camera:prepareLintJarForPublish', task ':capacitor-camera:mergeDebugJavaResource', task ':capacitor-camera:syncDebugLibJars', task ':capacitor-camera:bundleDebugAar', task ':capacitor-camera:assembleDebug', task ':capacitor-cordova-android-plugins:checkDebugAarMetadata', task ':capacitor-cordova-android-plugins:stripDebugDebugSymbols', task ':capacitor-cordova-android-plugins:copyDebugJniLibsProjectAndLocalJars', task ':capacitor-cordova-android-plugins:extractDebugAnnotations', task ':capacitor-cordova-android-plugins:extractDeepLinksForAarDebug', task ':capacitor-cordova-android-plugins:mergeDebugGeneratedProguardFiles', task ':capacitor-cordova-android-plugins:mergeDebugConsumerProguardFiles', task ':capacitor-cordova-android-plugins:prepareDebugArtProfile', task ':capacitor-cordova-android-plugins:prepareLintJarForPublish', task ':capacitor-cordova-android-plugins:mergeDebugJavaResource', task ':capacitor-cordova-android-plugins:syncDebugLibJars', task ':capacitor-cordova-android-plugins:bundleDebugAar', task ':capacitor-cordova-android-plugins:assembleDebug']
+Tasks that were excluded: []
+work action Parameters of IdentityTransform (Thread[#101,Execution worker,5,main]) started.
+work action Parameters of DexingNoClasspathTransform (Thread[#100,included builds,5,main]) started.
+work action Parameters of DexingOutputSplitTransform (Thread[#100,included builds,5,main]) started.
+work action Parameters of ClassesDirToClassesTransform (Thread[#100,included builds,5,main]) started.
+work action Parameters of DexingOutputSplitTransform (Thread[#101,Execution worker,5,main]) started.
+Resolve mutations for :app:preBuild (Thread[#101,Execution worker,5,main]) started.
+:app:preBuild (Thread[#101,Execution worker,5,main]) started.
+
+> Task :app:preBuild UP-TO-DATE
+Skipping task ':app:preBuild' as it has no actions.
+Resolve mutations for :app:preDebugBuild (Thread[#101,Execution worker,5,main]) started.
+:app:preDebugBuild (Thread[#101,Execution worker,5,main]) started.
+
+> Task :app:preDebugBuild UP-TO-DATE
+Skipping task ':app:preDebugBuild' as it has no actions.
+Resolve mutations for :app:mergeDebugNativeDebugMetadata (Thread[#101,Execution worker,5,main]) started.
+:app:mergeDebugNativeDebugMetadata (Thread[#101,Execution worker,5,main]) started.
+
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+Skipping task ':app:mergeDebugNativeDebugMetadata' as it has no source files and no previous output files.
+Resolve mutations for :app:javaPreCompileDebug (Thread[#105,Execution worker Thread 5,5,main]) started.
+:app:javaPreCompileDebug (Thread[#101,Execution worker,5,main]) started.
+
+> Task :app:javaPreCompileDebug UP-TO-DATE
+Caching disabled for task ':app:javaPreCompileDebug' because:
+  Build cache is disabled
+Skipping task ':app:javaPreCompileDebug' as it is up-to-date.
+Resolve mutations for :capacitor-android:preBuild (Thread[#101,Execution worker,5,main]) started.
+:capacitor-android:preBuild (Thread[#101,Execution worker,5,main]) started.
+
+> Task :capacitor-android:preBuild UP-TO-DATE
+Skipping task ':capacitor-android:preBuild' as it has no actions.
+Resolve mutations for :capacitor-android:preDebugBuild (Thread[#101,Execution worker,5,main]) started.
+:capacitor-android:preDebugBuild (Thread[#101,Execution worker,5,main]) started.
+
+> Task :capacitor-android:preDebugBuild UP-TO-DATE
+Skipping task ':capacitor-android:preDebugBuild' as it has no actions.
+Resolve mutations for :capacitor-android:writeDebugAarMetadata (Thread[#101,Execution worker,5,main]) started.
+:capacitor-android:writeDebugAarMetadata (Thread[#101,Execution worker,5,main]) started.
+
+> Task :capacitor-android:writeDebugAarMetadata UP-TO-DATE
+Caching disabled for task ':capacitor-android:writeDebugAarMetadata' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':capacitor-android:writeDebugAarMetadata' as it is up-to-date.
+work action resolve aar-metadata.properties (project :capacitor-android) (Thread[#101,Execution worker,5,main]) started.
+Resolve mutations for :capacitor-camera:preBuild (Thread[#101,Execution worker,5,main]) started.
+:capacitor-camera:preBuild (Thread[#101,Execution worker,5,main]) started.
+
+> Task :capacitor-camera:preBuild UP-TO-DATE
+Skipping task ':capacitor-camera:preBuild' as it has no actions.
+Resolve mutations for :capacitor-camera:preDebugBuild (Thread[#101,Execution worker,5,main]) started.
+:capacitor-camera:preDebugBuild (Thread[#105,Execution worker Thread 5,5,main]) started.
+
+> Task :capacitor-camera:preDebugBuild UP-TO-DATE
+Skipping task ':capacitor-camera:preDebugBuild' as it has no actions.
+Resolve mutations for :capacitor-camera:writeDebugAarMetadata (Thread[#103,Execution worker Thread 3,5,main]) started.
+:capacitor-camera:writeDebugAarMetadata (Thread[#103,Execution worker Thread 3,5,main]) started.
+
+> Task :capacitor-camera:writeDebugAarMetadata UP-TO-DATE
+Caching disabled for task ':capacitor-camera:writeDebugAarMetadata' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':capacitor-camera:writeDebugAarMetadata' as it is up-to-date.
+work action resolve aar-metadata.properties (project :capacitor-camera) (Thread[#103,Execution worker Thread 3,5,main]) started.
+Resolve mutations for :capacitor-cordova-android-plugins:preBuild (Thread[#103,Execution worker Thread 3,5,main]) started.
+:capacitor-cordova-android-plugins:preBuild (Thread[#103,Execution worker Thread 3,5,main]) started.
+
+> Task :capacitor-cordova-android-plugins:preBuild UP-TO-DATE
+Skipping task ':capacitor-cordova-android-plugins:preBuild' as it has no actions.
+Resolve mutations for :capacitor-cordova-android-plugins:preDebugBuild (Thread[#100,included builds,5,main]) started.
+:capacitor-cordova-android-plugins:preDebugBuild (Thread[#100,included builds,5,main]) started.
+
+> Task :capacitor-cordova-android-plugins:preDebugBuild UP-TO-DATE
+Skipping task ':capacitor-cordova-android-plugins:preDebugBuild' as it has no actions.
+Resolve mutations for :capacitor-cordova-android-plugins:writeDebugAarMetadata (Thread[#100,included builds,5,main]) started.
+:capacitor-cordova-android-plugins:writeDebugAarMetadata (Thread[#100,included builds,5,main]) started.
+
+> Task :capacitor-cordova-android-plugins:writeDebugAarMetadata UP-TO-DATE
+Caching disabled for task ':capacitor-cordova-android-plugins:writeDebugAarMetadata' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':capacitor-cordova-android-plugins:writeDebugAarMetadata' as it is up-to-date.
+work action resolve aar-metadata.properties (project :capacitor-cordova-android-plugins) (Thread[#102,Execution worker Thread 2,5,main]) started.
+Resolve mutations for :app:checkDebugAarMetadata (Thread[#102,Execution worker Thread 2,5,main]) started.
+:app:checkDebugAarMetadata (Thread[#102,Execution worker Thread 2,5,main]) started.
+
+> Task :app:checkDebugAarMetadata
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/app/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/app/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/app/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/app/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+Caching disabled for task ':app:checkDebugAarMetadata' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:checkDebugAarMetadata' as it is up-to-date.
+
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+Resolve mutations for :capacitor-android:processDebugNavigationResources (Thread[#102,Execution worker Thread 2,5,main]) started.
+:capacitor-android:processDebugNavigationResources (Thread[#102,Execution worker Thread 2,5,main]) started.
+
+> Task :capacitor-android:processDebugNavigationResources UP-TO-DATE
+Caching disabled for task ':capacitor-android:processDebugNavigationResources' because:
+  Build cache is disabled
+Skipping task ':capacitor-android:processDebugNavigationResources' as it is up-to-date.
+work action resolve debug (project :capacitor-android) (Thread[#102,Execution worker Thread 2,5,main]) started.
+Resolve mutations for :capacitor-camera:processDebugNavigationResources (Thread[#102,Execution worker Thread 2,5,main]) started.
+:capacitor-camera:processDebugNavigationResources (Thread[#102,Execution worker Thread 2,5,main]) started.
+
+> Task :capacitor-camera:processDebugNavigationResources UP-TO-DATE
+Caching disabled for task ':capacitor-camera:processDebugNavigationResources' because:
+  Build cache is disabled
+Skipping task ':capacitor-camera:processDebugNavigationResources' as it is up-to-date.
+work action resolve debug (project :capacitor-camera) (Thread[#102,Execution worker Thread 2,5,main]) started.
+Resolve mutations for :capacitor-cordova-android-plugins:processDebugNavigationResources (Thread[#102,Execution worker Thread 2,5,main]) started.
+:capacitor-cordova-android-plugins:processDebugNavigationResources (Thread[#102,Execution worker Thread 2,5,main]) started.
+
+> Task :capacitor-cordova-android-plugins:processDebugNavigationResources UP-TO-DATE
+Caching disabled for task ':capacitor-cordova-android-plugins:processDebugNavigationResources' because:
+  Build cache is disabled
+Skipping task ':capacitor-cordova-android-plugins:processDebugNavigationResources' as it is up-to-date.
+work action resolve debug (project :capacitor-cordova-android-plugins) (Thread[#102,Execution worker Thread 2,5,main]) started.
+Resolve mutations for :app:processDebugNavigationResources (Thread[#100,included builds,5,main]) started.
+:app:processDebugNavigationResources (Thread[#100,included builds,5,main]) started.
+
+> Task :app:processDebugNavigationResources UP-TO-DATE
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/app/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+Caching disabled for task ':app:processDebugNavigationResources' because:
+  Build cache is disabled
+Skipping task ':app:processDebugNavigationResources' as it is up-to-date.
+Resolve mutations for :app:compileDebugNavigationResources (Thread[#100,included builds,5,main]) started.
+:app:compileDebugNavigationResources (Thread[#100,included builds,5,main]) started.
+
+> Task :app:compileDebugNavigationResources UP-TO-DATE
+Caching disabled for task ':app:compileDebugNavigationResources' because:
+  Build cache is disabled
+Skipping task ':app:compileDebugNavigationResources' as it is up-to-date.
+Resolve mutations for :app:generateDebugResValues (Thread[#100,included builds,5,main]) started.
+:app:generateDebugResValues (Thread[#100,included builds,5,main]) started.
+
+> Task :app:generateDebugResValues UP-TO-DATE
+Caching disabled for task ':app:generateDebugResValues' because:
+  Build cache is disabled
+Skipping task ':app:generateDebugResValues' as it is up-to-date.
+Resolve mutations for :capacitor-android:generateDebugResValues (Thread[#100,included builds,5,main]) started.
+:capacitor-android:generateDebugResValues (Thread[#100,included builds,5,main]) started.
+
+> Task :capacitor-android:generateDebugResValues UP-TO-DATE
+Caching disabled for task ':capacitor-android:generateDebugResValues' because:
+  Build cache is disabled
+Skipping task ':capacitor-android:generateDebugResValues' as it is up-to-date.
+Resolve mutations for :capacitor-android:generateDebugResources (Thread[#100,included builds,5,main]) started.
+:capacitor-android:generateDebugResources (Thread[#100,included builds,5,main]) started.
+
+> Task :capacitor-android:generateDebugResources UP-TO-DATE
+Caching disabled for task ':capacitor-android:generateDebugResources' because:
+  Build cache is disabled
+Skipping task ':capacitor-android:generateDebugResources' as it is up-to-date.
+Resolve mutations for :capacitor-android:packageDebugResources (Thread[#100,included builds,5,main]) started.
+:capacitor-android:packageDebugResources (Thread[#100,included builds,5,main]) started.
+
+> Task :capacitor-android:packageDebugResources UP-TO-DATE
+Caching disabled for task ':capacitor-android:packageDebugResources' because:
+  Build cache is disabled
+Skipping task ':capacitor-android:packageDebugResources' as it is up-to-date.
+work action resolve packageDebugResources (project :capacitor-android) (Thread[#100,included builds,5,main]) started.
+Resolve mutations for :capacitor-camera:generateDebugResValues (Thread[#100,included builds,5,main]) started.
+:capacitor-camera:generateDebugResValues (Thread[#100,included builds,5,main]) started.
+
+> Task :capacitor-camera:generateDebugResValues UP-TO-DATE
+Caching disabled for task ':capacitor-camera:generateDebugResValues' because:
+  Build cache is disabled
+Skipping task ':capacitor-camera:generateDebugResValues' as it is up-to-date.
+Resolve mutations for :capacitor-camera:generateDebugResources (Thread[#100,included builds,5,main]) started.
+:capacitor-camera:generateDebugResources (Thread[#100,included builds,5,main]) started.
+
+> Task :capacitor-camera:generateDebugResources UP-TO-DATE
+Caching disabled for task ':capacitor-camera:generateDebugResources' because:
+  Build cache is disabled
+Skipping task ':capacitor-camera:generateDebugResources' as it is up-to-date.
+Resolve mutations for :capacitor-camera:packageDebugResources (Thread[#100,included builds,5,main]) started.
+:capacitor-camera:packageDebugResources (Thread[#100,included builds,5,main]) started.
+
+> Task :capacitor-camera:packageDebugResources UP-TO-DATE
+Caching disabled for task ':capacitor-camera:packageDebugResources' because:
+  Build cache is disabled
+Skipping task ':capacitor-camera:packageDebugResources' as it is up-to-date.
+work action resolve packageDebugResources (project :capacitor-camera) (Thread[#100,included builds,5,main]) started.
+Resolve mutations for :capacitor-cordova-android-plugins:generateDebugResValues (Thread[#100,included builds,5,main]) started.
+:capacitor-cordova-android-plugins:generateDebugResValues (Thread[#100,included builds,5,main]) started.
+
+> Task :capacitor-cordova-android-plugins:generateDebugResValues UP-TO-DATE
+Caching disabled for task ':capacitor-cordova-android-plugins:generateDebugResValues' because:
+  Build cache is disabled
+Skipping task ':capacitor-cordova-android-plugins:generateDebugResValues' as it is up-to-date.
+Resolve mutations for :capacitor-cordova-android-plugins:generateDebugResources (Thread[#100,included builds,5,main]) started.
+:capacitor-cordova-android-plugins:generateDebugResources (Thread[#100,included builds,5,main]) started.
+
+> Task :capacitor-cordova-android-plugins:generateDebugResources UP-TO-DATE
+Caching disabled for task ':capacitor-cordova-android-plugins:generateDebugResources' because:
+  Build cache is disabled
+Skipping task ':capacitor-cordova-android-plugins:generateDebugResources' as it is up-to-date.
+Resolve mutations for :capacitor-cordova-android-plugins:packageDebugResources (Thread[#100,included builds,5,main]) started.
+:capacitor-cordova-android-plugins:packageDebugResources (Thread[#100,included builds,5,main]) started.
+
+> Task :capacitor-cordova-android-plugins:packageDebugResources UP-TO-DATE
+Caching disabled for task ':capacitor-cordova-android-plugins:packageDebugResources' because:
+  Build cache is disabled
+Skipping task ':capacitor-cordova-android-plugins:packageDebugResources' as it is up-to-date.
+work action resolve packageDebugResources (project :capacitor-cordova-android-plugins) (Thread[#100,included builds,5,main]) started.
+Resolve mutations for :app:mapDebugSourceSetPaths (Thread[#100,included builds,5,main]) started.
+:app:mapDebugSourceSetPaths (Thread[#100,included builds,5,main]) started.
+
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/app/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+Caching disabled for task ':app:mapDebugSourceSetPaths' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:mapDebugSourceSetPaths' as it is up-to-date.
+Resolve mutations for :app:generateDebugResources (Thread[#101,Execution worker,5,main]) started.
+:app:generateDebugResources (Thread[#101,Execution worker,5,main]) started.
+
+> Task :app:generateDebugResources UP-TO-DATE
+Caching disabled for task ':app:generateDebugResources' because:
+  Build cache is disabled
+Skipping task ':app:generateDebugResources' as it is up-to-date.
+Resolve mutations for :app:mergeDebugResources (Thread[#100,included builds,5,main]) started.
+:app:mergeDebugResources (Thread[#100,included builds,5,main]) started.
+
+> Task :app:mergeDebugResources UP-TO-DATE
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/app/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+Caching disabled for task ':app:mergeDebugResources' because:
+  Build cache is disabled
+Skipping task ':app:mergeDebugResources' as it is up-to-date.
+Resolve mutations for :app:packageDebugResources (Thread[#100,included builds,5,main]) started.
+:app:packageDebugResources (Thread[#100,included builds,5,main]) started.
+
+> Task :app:packageDebugResources UP-TO-DATE
+Caching disabled for task ':app:packageDebugResources' because:
+  Build cache is disabled
+Skipping task ':app:packageDebugResources' as it is up-to-date.
+Resolve mutations for :app:parseDebugLocalResources (Thread[#101,Execution worker,5,main]) started.
+:app:parseDebugLocalResources (Thread[#101,Execution worker,5,main]) started.
+
+> Task :app:parseDebugLocalResources UP-TO-DATE
+Caching disabled for task ':app:parseDebugLocalResources' because:
+  Build cache is disabled
+Skipping task ':app:parseDebugLocalResources' as it is up-to-date.
+Resolve mutations for :app:createDebugCompatibleScreenManifests (Thread[#100,included builds,5,main]) started.
+:app:createDebugCompatibleScreenManifests (Thread[#100,included builds,5,main]) started.
+
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+Caching disabled for task ':app:createDebugCompatibleScreenManifests' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:createDebugCompatibleScreenManifests' as it is up-to-date.
+Resolve mutations for :app:extractDeepLinksDebug (Thread[#100,included builds,5,main]) started.
+:app:extractDeepLinksDebug (Thread[#100,included builds,5,main]) started.
+
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+Caching disabled for task ':app:extractDeepLinksDebug' because:
+  Build cache is disabled
+Skipping task ':app:extractDeepLinksDebug' as it is up-to-date.
+Resolve mutations for :capacitor-android:extractDeepLinksDebug (Thread[#100,included builds,5,main]) started.
+:capacitor-android:extractDeepLinksDebug (Thread[#100,included builds,5,main]) started.
+
+> Task :capacitor-android:extractDeepLinksDebug UP-TO-DATE
+Caching disabled for task ':capacitor-android:extractDeepLinksDebug' because:
+  Build cache is disabled
+Skipping task ':capacitor-android:extractDeepLinksDebug' as it is up-to-date.
+work action resolve navigation.json (project :capacitor-android) (Thread[#100,included builds,5,main]) started.
+Resolve mutations for :capacitor-android:processDebugManifest (Thread[#100,included builds,5,main]) started.
+:capacitor-android:processDebugManifest (Thread[#101,Execution worker,5,main]) started.
+
+> Task :capacitor-android:processDebugManifest UP-TO-DATE
+Caching disabled for task ':capacitor-android:processDebugManifest' because:
+  Build cache is disabled
+Skipping task ':capacitor-android:processDebugManifest' as it is up-to-date.
+work action resolve AndroidManifest.xml (project :capacitor-android) (Thread[#101,Execution worker,5,main]) started.
+Resolve mutations for :capacitor-camera:extractDeepLinksDebug (Thread[#101,Execution worker,5,main]) started.
+:capacitor-camera:extractDeepLinksDebug (Thread[#101,Execution worker,5,main]) started.
+
+> Task :capacitor-camera:extractDeepLinksDebug UP-TO-DATE
+Caching disabled for task ':capacitor-camera:extractDeepLinksDebug' because:
+  Build cache is disabled
+Skipping task ':capacitor-camera:extractDeepLinksDebug' as it is up-to-date.
+work action resolve navigation.json (project :capacitor-camera) (Thread[#101,Execution worker,5,main]) started.
+Resolve mutations for :capacitor-camera:processDebugManifest (Thread[#101,Execution worker,5,main]) started.
+:capacitor-camera:processDebugManifest (Thread[#101,Execution worker,5,main]) started.
+
+> Task :capacitor-camera:processDebugManifest UP-TO-DATE
+Caching disabled for task ':capacitor-camera:processDebugManifest' because:
+  Build cache is disabled
+Skipping task ':capacitor-camera:processDebugManifest' as it is up-to-date.
+work action resolve AndroidManifest.xml (project :capacitor-camera) (Thread[#101,Execution worker,5,main]) started.
+Resolve mutations for :capacitor-cordova-android-plugins:extractDeepLinksDebug (Thread[#101,Execution worker,5,main]) started.
+:capacitor-cordova-android-plugins:extractDeepLinksDebug (Thread[#101,Execution worker,5,main]) started.
+
+> Task :capacitor-cordova-android-plugins:extractDeepLinksDebug UP-TO-DATE
+Caching disabled for task ':capacitor-cordova-android-plugins:extractDeepLinksDebug' because:
+  Build cache is disabled
+Skipping task ':capacitor-cordova-android-plugins:extractDeepLinksDebug' as it is up-to-date.
+work action resolve navigation.json (project :capacitor-cordova-android-plugins) (Thread[#101,Execution worker,5,main]) started.
+Resolve mutations for :capacitor-cordova-android-plugins:processDebugManifest (Thread[#101,Execution worker,5,main]) started.
+:capacitor-cordova-android-plugins:processDebugManifest (Thread[#101,Execution worker,5,main]) started.
+
+> Task :capacitor-cordova-android-plugins:processDebugManifest UP-TO-DATE
+Caching disabled for task ':capacitor-cordova-android-plugins:processDebugManifest' because:
+  Build cache is disabled
+Skipping task ':capacitor-cordova-android-plugins:processDebugManifest' as it is up-to-date.
+work action resolve AndroidManifest.xml (project :capacitor-cordova-android-plugins) (Thread[#101,Execution worker,5,main]) started.
+Resolve mutations for :app:processDebugMainManifest (Thread[#101,Execution worker,5,main]) started.
+:app:processDebugMainManifest (Thread[#101,Execution worker,5,main]) started.
+
+> Task :app:processDebugMainManifest UP-TO-DATE
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/app/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/app/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/app/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/app/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+Caching disabled for task ':app:processDebugMainManifest' because:
+  Build cache is disabled
+Skipping task ':app:processDebugMainManifest' as it is up-to-date.
+Resolve mutations for :app:processDebugManifest (Thread[#101,Execution worker,5,main]) started.
+:app:processDebugManifest (Thread[#101,Execution worker,5,main]) started.
+
+> Task :app:processDebugManifest UP-TO-DATE
+Caching disabled for task ':app:processDebugManifest' because:
+  Build cache is disabled
+Skipping task ':app:processDebugManifest' as it is up-to-date.
+Resolve mutations for :app:processDebugManifestForPackage (Thread[#101,Execution worker,5,main]) started.
+:app:processDebugManifestForPackage (Thread[#101,Execution worker,5,main]) started.
+
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+Custom actions are attached to task ':app:processDebugManifestForPackage'.
+Caching disabled for task ':app:processDebugManifestForPackage' because:
+  Build cache is disabled
+Skipping task ':app:processDebugManifestForPackage' as it is up-to-date.
+Resolve mutations for :capacitor-android:compileDebugLibraryResources (Thread[#103,Execution worker Thread 3,5,main]) started.
+:capacitor-android:compileDebugLibraryResources (Thread[#103,Execution worker Thread 3,5,main]) started.
+
+> Task :capacitor-android:compileDebugLibraryResources UP-TO-DATE
+Caching disabled for task ':capacitor-android:compileDebugLibraryResources' because:
+  Build cache is disabled
+Skipping task ':capacitor-android:compileDebugLibraryResources' as it is up-to-date.
+work action resolve out (project :capacitor-android) (Thread[#103,Execution worker Thread 3,5,main]) started.
+Resolve mutations for :capacitor-android:parseDebugLocalResources (Thread[#103,Execution worker Thread 3,5,main]) started.
+:capacitor-android:parseDebugLocalResources (Thread[#103,Execution worker Thread 3,5,main]) started.
+
+> Task :capacitor-android:parseDebugLocalResources UP-TO-DATE
+Caching disabled for task ':capacitor-android:parseDebugLocalResources' because:
+  Build cache is disabled
+Skipping task ':capacitor-android:parseDebugLocalResources' as it is up-to-date.
+Resolve mutations for :capacitor-android:generateDebugRFile (Thread[#103,Execution worker Thread 3,5,main]) started.
+:capacitor-android:generateDebugRFile (Thread[#103,Execution worker Thread 3,5,main]) started.
+
+> Task :capacitor-android:generateDebugRFile UP-TO-DATE
+Caching disabled for task ':capacitor-android:generateDebugRFile' because:
+  Build cache is disabled
+Skipping task ':capacitor-android:generateDebugRFile' as it is up-to-date.
+work action resolve package-aware-r.txt (project :capacitor-android) (Thread[#103,Execution worker Thread 3,5,main]) started.
+Resolve mutations for :capacitor-camera:compileDebugLibraryResources (Thread[#102,Execution worker Thread 2,5,main]) started.
+:capacitor-camera:compileDebugLibraryResources (Thread[#102,Execution worker Thread 2,5,main]) started.
+
+> Task :capacitor-camera:compileDebugLibraryResources UP-TO-DATE
+Caching disabled for task ':capacitor-camera:compileDebugLibraryResources' because:
+  Build cache is disabled
+Skipping task ':capacitor-camera:compileDebugLibraryResources' as it is up-to-date.
+work action resolve out (project :capacitor-camera) (Thread[#103,Execution worker Thread 3,5,main]) started.
+Resolve mutations for :capacitor-camera:parseDebugLocalResources (Thread[#102,Execution worker Thread 2,5,main]) started.
+:capacitor-camera:parseDebugLocalResources (Thread[#103,Execution worker Thread 3,5,main]) started.
+
+> Task :capacitor-camera:parseDebugLocalResources UP-TO-DATE
+Caching disabled for task ':capacitor-camera:parseDebugLocalResources' because:
+  Build cache is disabled
+Skipping task ':capacitor-camera:parseDebugLocalResources' as it is up-to-date.
+Resolve mutations for :capacitor-camera:generateDebugRFile (Thread[#103,Execution worker Thread 3,5,main]) started.
+:capacitor-camera:generateDebugRFile (Thread[#102,Execution worker Thread 2,5,main]) started.
+
+> Task :capacitor-camera:generateDebugRFile UP-TO-DATE
+Caching disabled for task ':capacitor-camera:generateDebugRFile' because:
+  Build cache is disabled
+Skipping task ':capacitor-camera:generateDebugRFile' as it is up-to-date.
+work action resolve package-aware-r.txt (project :capacitor-camera) (Thread[#102,Execution worker Thread 2,5,main]) started.
+Resolve mutations for :capacitor-cordova-android-plugins:compileDebugLibraryResources (Thread[#102,Execution worker Thread 2,5,main]) started.
+:capacitor-cordova-android-plugins:compileDebugLibraryResources (Thread[#102,Execution worker Thread 2,5,main]) started.
+
+> Task :capacitor-cordova-android-plugins:compileDebugLibraryResources UP-TO-DATE
+Caching disabled for task ':capacitor-cordova-android-plugins:compileDebugLibraryResources' because:
+  Build cache is disabled
+Skipping task ':capacitor-cordova-android-plugins:compileDebugLibraryResources' as it is up-to-date.
+work action resolve out (project :capacitor-cordova-android-plugins) (Thread[#101,Execution worker,5,main]) started.
+Resolve mutations for :capacitor-cordova-android-plugins:parseDebugLocalResources (Thread[#103,Execution worker Thread 3,5,main]) started.
+:capacitor-cordova-android-plugins:parseDebugLocalResources (Thread[#103,Execution worker Thread 3,5,main]) started.
+
+> Task :capacitor-cordova-android-plugins:parseDebugLocalResources UP-TO-DATE
+Caching disabled for task ':capacitor-cordova-android-plugins:parseDebugLocalResources' because:
+  Build cache is disabled
+Skipping task ':capacitor-cordova-android-plugins:parseDebugLocalResources' as it is up-to-date.
+Resolve mutations for :capacitor-cordova-android-plugins:generateDebugRFile (Thread[#103,Execution worker Thread 3,5,main]) started.
+:capacitor-cordova-android-plugins:generateDebugRFile (Thread[#103,Execution worker Thread 3,5,main]) started.
+
+> Task :capacitor-cordova-android-plugins:generateDebugRFile UP-TO-DATE
+Caching disabled for task ':capacitor-cordova-android-plugins:generateDebugRFile' because:
+  Build cache is disabled
+Skipping task ':capacitor-cordova-android-plugins:generateDebugRFile' as it is up-to-date.
+work action resolve package-aware-r.txt (project :capacitor-cordova-android-plugins) (Thread[#103,Execution worker Thread 3,5,main]) started.
+Resolve mutations for :app:processDebugResources (Thread[#103,Execution worker Thread 3,5,main]) started.
+:app:processDebugResources (Thread[#103,Execution worker Thread 3,5,main]) started.
+AAPT2 aapt2-8.13.0-13719691-linux Daemon #0: Unexpected error output: /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/5ddfcd8e82813a03645199d28f893953/transformed/aapt2-8.13.0-13719691-linux/aapt2: 1: Syntax error: word unexpected (expecting ")")
+AAPT2 aapt2-8.13.0-13719691-linux Daemon #1: Unexpected error output: /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/5ddfcd8e82813a03645199d28f893953/transformed/aapt2-8.13.0-13719691-linux/aapt2: 1: Syntax error: word unexpected (expecting ")")
+AAPT2 aapt2-8.13.0-13719691-linux Daemon #2: Unexpected error output: /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/5ddfcd8e82813a03645199d28f893953/transformed/aapt2-8.13.0-13719691-linux/aapt2: 1: Syntax error: word unexpected (expecting ")")
+
+> Task :app:processDebugResources FAILED
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/app/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+camera@8.2.1_@capacitor+core@8.4.2/node_modules/@capacitor/camera/android/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/node_modules/.pnpm/@capacitor+android@8.4.2_@capacitor+core@8.4.2/node_modules/@capacitor/android/capacitor/libs', not found
+file or directory '/data/data/com.termux/files/home/Roy-AI-Interface/artifacts/roy-ai/android/capacitor-cordova-android-plugins/src/main/libs', not found
+Caching disabled for AarResourcesCompilerTransform: /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/4296c404e0105ff1dfb2d9c8749e8f2d/transformed/ioncamera-android-1.0.2 because:
+  Build cache is disabled
+Caching disabled for AarResourcesCompilerTransform: /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1 because:
+  Build cache is disabled
+Caching disabled for AarResourcesCompilerTransform: /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/e757591e56cec08df0c709865cb0f913/transformed/core-1.17.0 because:
+  Build cache is disabled
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/abc_fade_in.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_abc_fade_in.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/4296c404e0105ff1dfb2d9c8749e8f2d/transformed/ioncamera-android-1.0.2/res/layout/activity_image_editor.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/f08c0edf563881fdfafd9c093e9ad0a3-d4c3fdc9-f0b8-45f3-9c41-47afd7c95510/transformed/io.ionic.libs.ioncameralib/layout_activity_image_editor.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/e757591e56cec08df0c709865cb0f913/transformed/core-1.17.0/res/drawable-v21/notification_action_background.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/913343a9db3bfac477c7fe6f7e8da521-0fedf47c-81c9-4f22-ace5-485da33cf87c/transformed/androidx.core/drawable-v21_notification_action_background.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/abc_fade_out.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_abc_fade_out.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/4296c404e0105ff1dfb2d9c8749e8f2d/transformed/ioncamera-android-1.0.2/res/layout/activity_loading.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/f08c0edf563881fdfafd9c093e9ad0a3-d4c3fdc9-f0b8-45f3-9c41-47afd7c95510/transformed/io.ionic.libs.ioncameralib/layout_activity_loading.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/abc_grow_fade_in_from_bottom.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_abc_grow_fade_in_from_bottom.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/4296c404e0105ff1dfb2d9c8749e8f2d/transformed/ioncamera-android-1.0.2/res/layout/activity_main.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/f08c0edf563881fdfafd9c093e9ad0a3-d4c3fdc9-f0b8-45f3-9c41-47afd7c95510/transformed/io.ionic.libs.ioncameralib/layout_activity_main.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/abc_popup_enter.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_abc_popup_enter.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/4296c404e0105ff1dfb2d9c8749e8f2d/transformed/ioncamera-android-1.0.2/res/layout/image_editor_view.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/f08c0edf563881fdfafd9c093e9ad0a3-d4c3fdc9-f0b8-45f3-9c41-47afd7c95510/transformed/io.ionic.libs.ioncameralib/layout_image_editor_view.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/abc_popup_exit.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_abc_popup_exit.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/abc_shrink_fade_out_from_bottom.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_abc_shrink_fade_out_from_bottom.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/abc_slide_in_bottom.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_abc_slide_in_bottom.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/4296c404e0105ff1dfb2d9c8749e8f2d/transformed/ioncamera-android-1.0.2/res/layout-land/image_editor_view.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/f08c0edf563881fdfafd9c093e9ad0a3-d4c3fdc9-f0b8-45f3-9c41-47afd7c95510/transformed/io.ionic.libs.ioncameralib/layout-land_image_editor_view.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/abc_slide_in_top.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_abc_slide_in_top.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/abc_slide_out_bottom.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_abc_slide_out_bottom.xml.flat
+AAPT2 aapt2-8.13.0-13719691-linux Daemon #0: starting
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/abc_slide_out_top.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_abc_slide_out_top.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/abc_tooltip_enter.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_abc_tooltip_enter.xml.flat
+AAPT2 aapt2-8.13.0-13719691-linux Daemon #1: starting
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/abc_tooltip_exit.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_abc_tooltip_exit.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/btn_checkbox_to_checked_box_inner_merged_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_btn_checkbox_to_checked_box_inner_merged_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/btn_checkbox_to_checked_box_outer_merged_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_btn_checkbox_to_checked_box_outer_merged_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/btn_checkbox_to_checked_icon_null_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_btn_checkbox_to_checked_icon_null_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/btn_checkbox_to_unchecked_box_inner_merged_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_btn_checkbox_to_unchecked_box_inner_merged_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/btn_checkbox_to_unchecked_check_path_merged_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_btn_checkbox_to_unchecked_check_path_merged_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/btn_checkbox_to_unchecked_icon_null_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_btn_checkbox_to_unchecked_icon_null_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/btn_radio_to_off_mtrl_dot_group_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_btn_radio_to_off_mtrl_dot_group_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/btn_radio_to_off_mtrl_ring_outer_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_btn_radio_to_off_mtrl_ring_outer_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/btn_radio_to_off_mtrl_ring_outer_path_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_btn_radio_to_off_mtrl_ring_outer_path_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/btn_radio_to_on_mtrl_dot_group_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_btn_radio_to_on_mtrl_dot_group_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/btn_radio_to_on_mtrl_ring_outer_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_btn_radio_to_on_mtrl_ring_outer_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/anim/btn_radio_to_on_mtrl_ring_outer_path_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/anim_btn_radio_to_on_mtrl_ring_outer_path_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_background_cache_hint_selector_material_dark.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_background_cache_hint_selector_material_dark.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_background_cache_hint_selector_material_light.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_background_cache_hint_selector_material_light.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_btn_colored_text_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_btn_colored_text_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_hint_foreground_material_dark.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_hint_foreground_material_dark.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_hint_foreground_material_light.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_hint_foreground_material_light.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_primary_text_disable_only_material_dark.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_primary_text_disable_only_material_dark.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_primary_text_disable_only_material_light.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_primary_text_disable_only_material_light.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_primary_text_material_dark.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_primary_text_material_dark.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_primary_text_material_light.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_primary_text_material_light.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_search_url_text.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_search_url_text.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_secondary_text_material_dark.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_secondary_text_material_dark.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_secondary_text_material_light.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_secondary_text_material_light.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_tint_btn_checkable.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_tint_btn_checkable.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_tint_default.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_tint_default.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_tint_edittext.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_tint_edittext.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_tint_seek_thumb.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_tint_seek_thumb.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_tint_spinner.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_tint_spinner.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/abc_tint_switch_track.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_abc_tint_switch_track.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/switch_thumb_material_dark.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_switch_thumb_material_dark.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color/switch_thumb_material_light.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color_switch_thumb_material_light.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color-v21/abc_btn_colored_borderless_text_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color-v21_abc_btn_colored_borderless_text_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color-v23/abc_btn_colored_borderless_text_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color-v23_abc_btn_colored_borderless_text_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color-v23/abc_btn_colored_text_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color-v23_abc_btn_colored_text_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color-v23/abc_color_highlight_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color-v23_abc_color_highlight_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color-v23/abc_tint_btn_checkable.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color-v23_abc_tint_btn_checkable.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color-v23/abc_tint_default.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color-v23_abc_tint_default.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color-v23/abc_tint_edittext.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color-v23_abc_tint_edittext.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color-v23/abc_tint_seek_thumb.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color-v23_abc_tint_seek_thumb.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color-v23/abc_tint_spinner.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color-v23_abc_tint_spinner.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/color-v23/abc_tint_switch_track.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/color-v23_abc_tint_switch_track.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_btn_borderless_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_btn_borderless_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_btn_check_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_btn_check_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_btn_check_material_anim.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_btn_check_material_anim.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_btn_default_mtrl_shape.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_btn_default_mtrl_shape.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_btn_radio_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_btn_radio_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_btn_radio_material_anim.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_btn_radio_material_anim.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_cab_background_internal_bg.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_cab_background_internal_bg.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_cab_background_top_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_cab_background_top_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_ic_ab_back_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_ic_ab_back_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_ic_arrow_drop_right_black_24dp.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_ic_arrow_drop_right_black_24dp.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_ic_clear_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_ic_clear_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_ic_go_search_api_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_ic_go_search_api_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_ic_menu_copy_mtrl_am_alpha.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_ic_menu_copy_mtrl_am_alpha.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_ic_menu_cut_mtrl_alpha.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_ic_menu_cut_mtrl_alpha.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_ic_menu_overflow_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_ic_menu_overflow_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_ic_menu_paste_mtrl_am_alpha.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_ic_menu_paste_mtrl_am_alpha.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_ic_menu_selectall_mtrl_alpha.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_ic_menu_selectall_mtrl_alpha.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_ic_menu_share_mtrl_alpha.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_ic_menu_share_mtrl_alpha.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_ic_search_api_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_ic_search_api_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_ic_voice_search_api_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_ic_voice_search_api_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_item_background_holo_dark.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_item_background_holo_dark.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_item_background_holo_light.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_item_background_holo_light.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_list_selector_background_transition_holo_dark.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_list_selector_background_transition_holo_dark.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_list_selector_background_transition_holo_light.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_list_selector_background_transition_holo_light.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_list_selector_holo_dark.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_list_selector_holo_dark.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_list_selector_holo_light.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_list_selector_holo_light.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_ratingbar_indicator_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_ratingbar_indicator_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_ratingbar_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_ratingbar_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_ratingbar_small_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_ratingbar_small_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_seekbar_thumb_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_seekbar_thumb_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_seekbar_tick_mark_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_seekbar_tick_mark_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_seekbar_track_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_seekbar_track_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_spinner_textfield_background_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_spinner_textfield_background_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_star_black_48dp.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_star_black_48dp.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_star_half_black_48dp.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_star_half_black_48dp.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_switch_thumb_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_switch_thumb_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_tab_indicator_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_tab_indicator_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_text_cursor_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_text_cursor_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/abc_textfield_search_material.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_abc_textfield_search_material.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/btn_checkbox_checked_mtrl.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_btn_checkbox_checked_mtrl.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/btn_checkbox_checked_to_unchecked_mtrl_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_btn_checkbox_checked_to_unchecked_mtrl_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/btn_checkbox_unchecked_mtrl.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_btn_checkbox_unchecked_mtrl.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/btn_checkbox_unchecked_to_checked_mtrl_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_btn_checkbox_unchecked_to_checked_mtrl_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/btn_radio_off_mtrl.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_btn_radio_off_mtrl.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/btn_radio_off_to_on_mtrl_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_btn_radio_off_to_on_mtrl_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/btn_radio_on_mtrl.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_btn_radio_on_mtrl.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/btn_radio_on_to_off_mtrl_animation.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_btn_radio_on_to_off_mtrl_animation.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/test_level_drawable.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_test_level_drawable.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/tooltip_frame_dark.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_tooltip_frame_dark.xml.flat
+Compiling xml file /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1/res/drawable/tooltip_frame_light.xml to /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/6ab10773fe7e80c9bf4bef0c4e8d79e3-e2f69cd4-bab3-4b5d-820e-bc08850dce45/transformed/androidx.appcompat/drawable_tooltip_frame_light.xml.flat
+AAPT2 aapt2-8.13.0-13719691-linux Daemon #2: starting
+Build e1c88813-881e-4b72-a39f-542db608b737 is closed
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:processDebugResources'.
+> Could not resolve all files for configuration ':app:debugRuntimeClasspath'.
+   > Failed to transform ioncamera-android-1.0.2.aar (io.ionic.libs:ioncamera-android:1.0.2) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.category=library, org.gradle.dependency.bundling=external, org.gradle.libraryelements=aar, org.gradle.status=release, org.gradle.usage=java-runtime}.
+      > Execution failed for AarResourcesCompilerTransform: /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/4296c404e0105ff1dfb2d9c8749e8f2d/transformed/ioncamera-android-1.0.2.
+         > AAPT2 aapt2-8.13.0-13719691-linux Daemon #1: Daemon startup failed
+           This should not happen under normal circumstances, please file an issue if it does.
+   > Failed to transform appcompat-1.7.1.aar (androidx.appcompat:appcompat:1.7.1) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.category=library, org.gradle.dependency.bundling=external, org.gradle.libraryelements=aar, org.gradle.status=release, org.gradle.usage=java-runtime}.
+      > Execution failed for AarResourcesCompilerTransform: /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/804e69ce4f1c75e7ceef257061236269/transformed/appcompat-1.7.1.
+         > AAPT2 aapt2-8.13.0-13719691-linux Daemon #2: Daemon startup failed
+           This should not happen under normal circumstances, please file an issue if it does.
+   > Failed to transform core-1.17.0.aar (androidx.core:core:1.17.0) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.category=library, org.gradle.dependency.bundling=external, org.gradle.libraryelements=aar, org.gradle.status=release, org.gradle.usage=java-runtime}.
+      > Execution failed for AarResourcesCompilerTransform: /data/data/com.termux/files/home/.gradle/caches/8.14.3/transforms/e757591e56cec08df0c709865cb0f913/transformed/core-1.17.0.
+         > AAPT2 aapt2-8.13.0-13719691-linux Daemon #0: Daemon startup failed
+           This should not happen under normal circumstances, please file an issue if it does.
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 1m 11s
+46 actionable tasks: 1 executed, 45 up-to-date

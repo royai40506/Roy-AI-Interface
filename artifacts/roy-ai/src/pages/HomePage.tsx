@@ -6,6 +6,8 @@ import { useAppContext } from '@/context/AppContext';
 import RoyAvatarFX from "@/components/RoyAvatarFX";
 import royAvatar from '/avatar/roy-avatar-v2.png';
 import { toast } from "@/hooks/use-toast";
+import { checkForUpdates } from "@/lib/update-api";
+import { startUpdate } from "@/plugins/UpdateManager";
 
 type OrbState = 'idle' | 'listening' | 'thinking' | 'speaking';
 
@@ -13,6 +15,8 @@ export default function HomePage() {
   const { language, setLanguage, setSidebarOpen, messages, orbState, setOrbState, audioLevel, royAlignment } = useAppContext();
   const [, navigate] = useLocation();
   const [isVoiceActive, setIsVoiceActive] = useState(false);
+const [updateInfo, setUpdateInfo] = useState<any>(null);
+const [showUpdateDialog, setShowUpdateDialog] = useState(false);
   
   const SpeechRecognitionAPI =
     typeof window !== "undefined"
@@ -23,6 +27,25 @@ export default function HomePage() {
 const speechSupported = useMemo(() => {
     return typeof window !== "undefined" &&
       ("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
+  }, []);
+
+
+  useEffect(() => {
+    (async () => {
+      const info = await checkForUpdates();
+
+      if (info?.updateAvailable) {
+        console.log("ROY UPDATE AVAILABLE:", info.latestVersion);
+
+        setUpdateInfo(info);
+        setShowUpdateDialog(true);
+
+        toast({
+          title: "Update Available",
+          description: `New version ${info.latestVersion} is available.`,
+        });
+      }
+    })();
   }, []);
 
 
@@ -180,7 +203,42 @@ const speechSupported = useMemo(() => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-background overflow-hidden relative">
+    
+<div className="flex flex-col h-full bg-background overflow-hidden relative">
+
+      {showUpdateDialog && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/60">
+          <div className="w-[340px] rounded-2xl border border-border bg-card p-6 shadow-2xl">
+            <h2 className="text-xl font-bold mb-2">🚀 Update Available</h2>
+
+            <p className="text-sm opacity-80 mb-4">
+              Latest Version: {updateInfo?.latestVersion ?? "Unknown"}
+            </p>
+
+            <div className="flex gap-3">
+              <button
+                className="flex-1 rounded-lg bg-primary px-4 py-2 text-primary-foreground"
+                onClick={() =>
+                  startUpdate(
+                    updateInfo?.downloadUrl ||
+                    "https://github.com/royai40506/Roy-AI-Interface/releases"
+                  )
+                }
+              >
+                Update Now
+              </button>
+
+              <button
+                className="flex-1 rounded-lg border px-4 py-2"
+                onClick={() => setShowUpdateDialog(false)}
+              >
+                Later
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Background glow effects */}
       <motion.div
         className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none"

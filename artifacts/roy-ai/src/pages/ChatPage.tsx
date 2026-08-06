@@ -6,7 +6,7 @@ import TypingIndicator from "@/components/TypingIndicator";
 import InputBar from "@/components/InputBar";
 import { streamChat } from "@/lib/chat-api";
 import { generateVoice } from "@/lib/voice-api";
-import { RoyDevice } from "@/lib/device-api";
+import { executeDeviceAction } from "@/lib/device-api";
 
 let currentAudio: HTMLAudioElement | null = null;
 
