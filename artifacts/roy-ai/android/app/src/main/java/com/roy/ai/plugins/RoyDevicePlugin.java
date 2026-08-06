@@ -127,12 +127,19 @@ public class RoyDevicePlugin extends Plugin {
     public void startUpdate(PluginCall call) {
         String url = call.getString("url", "");
 
-        JSObject ret = new JSObject();
-        ret.put("success", true);
-        ret.put("action", "start_update");
-        ret.put("url", url);
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getActivity().startActivity(intent);
 
-        call.resolve(ret);
+            JSObject ret = new JSObject();
+            ret.put("success", true);
+            ret.put("action", "start_update");
+            call.resolve(ret);
+
+        } catch (Exception e) {
+            call.reject(e.getMessage());
+        }
     }
 
 @PermissionCallback
