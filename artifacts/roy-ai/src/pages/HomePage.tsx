@@ -206,6 +206,39 @@ const speechSupported = useMemo(() => {
     
 <div className="flex flex-col h-full bg-background overflow-hidden relative">
 
+      <button
+        type="button"
+        className="absolute top-4 right-4 z-40 rounded-lg border border-border bg-card/90 px-3 py-2 text-sm shadow-lg"
+        onClick={async () => {
+          const info = await checkForUpdates();
+
+          if (!info) {
+            toast({
+              title: "Update Check Failed",
+              description: "Could not connect to GitHub.",
+            });
+            return;
+          }
+
+          setUpdateInfo(info);
+
+          if (info.updateAvailable) {
+            setShowUpdateDialog(true);
+            toast({
+              title: "Update Available",
+              description: `New version ${info.latestVersion} is available.`,
+            });
+          } else {
+            toast({
+              title: "Roy AI is up to date",
+              description: `Current version ${info.latestVersion ?? "Unknown"}.`,
+            });
+          }
+        }}
+      >
+        Check for Updates
+      </button>
+
       {showUpdateDialog && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/60">
           <div className="w-[340px] rounded-2xl border border-border bg-card p-6 shadow-2xl">
