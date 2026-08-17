@@ -289,7 +289,7 @@ const lastVoiceInputRef = useRef("");
 
             addMessage({
               role: "assistant",
-              content: `Gemini Error: ${err}`,
+              content: `Roy AI Error: ${err}`,
             });
           },
         });
