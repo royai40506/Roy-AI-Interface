@@ -34,7 +34,7 @@ export interface StreamChatOptions {
 function apiBase(): string {
   // In production the backend is co-served under /api.
   // In Vite dev mode the proxy rewrites /api → api-server.
-  return "http://100.78.191.41:3000/api";
+  return "http://127.0.0.1:3000/api";
 }
 
 export async function streamChat(opts: StreamChatOptions): Promise<void> {
