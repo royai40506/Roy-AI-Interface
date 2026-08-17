@@ -34,7 +34,7 @@ export interface StreamChatOptions {
 function apiBase(): string {
   // In production the backend is co-served under /api.
   // In Vite dev mode the proxy rewrites /api → api-server.
-  return "http://localhost:3000/api";
+  return "http://100.78.191.41:3000/api";
 }
 
 export async function streamChat(opts: StreamChatOptions): Promise<void> {
@@ -55,7 +55,7 @@ export async function streamChat(opts: StreamChatOptions): Promise<void> {
   try {
   console.log("BODY SIZE =", JSON.stringify({ messages, language, image }).length);
     console.log("ROY REQUEST =", { language, hasImage: !!image, messages: messages.length });
-    response = await fetch(`${apiBase()}/groq/chat`, {
+    response = await fetch(`${apiBase()}/gemini/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages, language, image }),
