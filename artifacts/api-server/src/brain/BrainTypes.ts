@@ -28,6 +28,7 @@ export interface BrainDecision {
   reason: string;
   query?: string;
   action?: AutomationAction;
+  actions?: AutomationAction[];
 }
 
 

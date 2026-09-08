@@ -1,4 +1,4 @@
-import { MarketRecord } from "./dataManager";
+import { type MarketRecord } from "@workspace/db";
 import { getTotal, isRedJodi } from "./knowledgeEngine";
 
 export class PatternAnalyzer {

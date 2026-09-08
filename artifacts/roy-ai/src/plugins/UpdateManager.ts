@@ -1,13 +1,11 @@
 import { Capacitor } from "@capacitor/core";
-import { Browser } from "@capacitor/browser";
+import { RoyDevice } from "@/lib/device-api";
 
 export async function startUpdate(url: string) {
   if (!url) return;
 
   if (Capacitor.isNativePlatform()) {
-    await Browser.open({
-      url,
-    });
+    await RoyDevice.startUpdate({ url });
     return;
   }
 

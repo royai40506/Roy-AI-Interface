@@ -66,3 +66,13 @@ artifacts/api-server/.env.*
 
 artifacts/api-server/eleven-test.json
 artifacts/api-server/server.log
+
+# Roy AI local transfer/audit artifacts
+*.log
+*.pre-*
+*.update-backup
+backtest-before.json
+artifacts/api-server/backtest-*.json
+
+# Local gitignore backup
+.gitignore.transfer-backup

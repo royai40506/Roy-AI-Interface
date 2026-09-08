@@ -8,7 +8,7 @@ export interface RoyDevicePlugin {
   openWhatsApp(): Promise<{ success: boolean; action: string }>;
   flashlightOn(): Promise<{ success: boolean; action: string }>;
   callContact(): Promise<{ success: boolean; action: string }>;
-  startUpdate(url: string): Promise<{ success: boolean; action: string }>;
+  startUpdate(options: { url: string }): Promise<{ success: boolean; action: string }>;
 }
 
 export const RoyDevice =

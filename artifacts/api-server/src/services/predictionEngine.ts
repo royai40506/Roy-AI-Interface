@@ -1,5 +1,7 @@
-import { dataManager } from "./dataManager";
+import { marketRepository } from "./marketRepository";
 import { patternAnalyzer } from "./patternAnalyzer";
+import { featureEngine } from "./featureEngine";
+import { predictionScorer } from "./predictionScorer";
 
 export interface PredictionResult {
   date: string;
@@ -9,36 +11,40 @@ export interface PredictionResult {
 }
 
 export class PredictionEngine {
-  predict(targetDate: string): PredictionResult {
-    const records = dataManager.getAll();
+  async predict(targetDate: string): Promise<PredictionResult> {
+    const records = await marketRepository.getAll();
+    const history = records.filter((record) => record.date < targetDate);
 
-    const analysis = patternAnalyzer.analyze(records);
+    const analysis = patternAnalyzer.analyze(history);
+    const features = featureEngine.summarize(history);
 
     console.log("Records:", analysis.totalRecords);
+    console.log("Recent feature records:", features.recentRecords);
+
+    if (history.length < 5) {
+      throw new Error("Insufficient historical data for prediction");
+    }
+
+    const openPana = predictionScorer
+      .scorePanaCandidates(history, "openPana")
+      .slice(0, 4)
+      .map((candidate) => candidate.value);
+
+    const jodi = predictionScorer
+      .scoreJodiCandidates(history)
+      .slice(0, 4)
+      .map((candidate) => candidate.value);
+
+    const closePana = predictionScorer
+      .scorePanaCandidates(history, "closePana")
+      .slice(0, 4)
+      .map((candidate) => candidate.value);
 
     return {
       date: targetDate,
-
-      openPana: [
-        "123",
-        "560",
-        "270",
-        "149"
-      ],
-
-      jodi: [
-        "19",
-        "27",
-        "61",
-        "50"
-      ],
-
-      closePana: [
-        "450",
-        "189",
-        "279",
-        "118"
-      ]
+      openPana,
+      jodi,
+      closePana,
     };
   }
 }

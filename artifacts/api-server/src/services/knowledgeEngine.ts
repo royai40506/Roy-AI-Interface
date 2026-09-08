@@ -1,9 +1,3 @@
-export interface MarketRecord {
-  date: string;
-  openPana: string;
-  jodi: string;
-  closePana: string;
-}
 
 export interface PredictionResult {
   targetDate: string;

@@ -127,31 +127,86 @@ public class RoyDevicePlugin extends Plugin {
     public void startUpdate(PluginCall call) {
         String url = call.getString("url", "");
 
+        if (url == null || url.trim().isEmpty()) {
+            call.reject("Update URL is empty.");
+            return;
+        }
+
         try {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            java.net.URL downloadUrl = new java.net.URL(url);
+            java.net.HttpURLConnection connection =
+                (java.net.HttpURLConnection) downloadUrl.openConnection();
+
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(15000);
+            connection.setReadTimeout(60000);
+            connection.setInstanceFollowRedirects(true);
+            connection.connect();
+
+            int responseCode = connection.getResponseCode();
+
+            if (responseCode < 200 || responseCode >= 300) {
+                connection.disconnect();
+                call.reject("APK download failed. HTTP " + responseCode);
+                return;
+            }
+
+            java.io.File apkFile =
+                new java.io.File(getContext().getCacheDir(), "roy-ai-update.apk");
+
+            try (
+                java.io.InputStream input = connection.getInputStream();
+                java.io.FileOutputStream output =
+                    new java.io.FileOutputStream(apkFile)
+            ) {
+                byte[] buffer = new byte[8192];
+                int count;
+
+                while ((count = input.read(buffer)) != -1) {
+                    output.write(buffer, 0, count);
+                }
+
+                output.flush();
+            } finally {
+                connection.disconnect();
+            }
+
+            if (!apkFile.exists() || apkFile.length() == 0) {
+                call.reject("Downloaded APK is empty.");
+                return;
+            }
+
+            Uri apkUri = androidx.core.content.FileProvider.getUriForFile(
+                getContext(),
+                getContext().getPackageName() + ".fileprovider",
+                apkFile
+            );
+
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(
+                apkUri,
+                "application/vnd.android.package-archive"
+            );
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
             getActivity().startActivity(intent);
 
             JSObject ret = new JSObject();
             ret.put("success", true);
             ret.put("action", "start_update");
+            ret.put("file", apkFile.getName());
             call.resolve(ret);
 
         } catch (Exception e) {
-            call.reject(e.getMessage());
+            call.reject(
+                e.getMessage() != null
+                    ? e.getMessage()
+                    : "Unable to start update."
+            );
         }
     }
 
-@PermissionCallback
-    private void cameraPermissionCallback(PluginCall call) {
-        if (getPermissionState("camera") == PermissionState.GRANTED) {
-            openCamera(call);
-        } else {
-            call.reject("Camera permission denied.");
-        }
-    }
-
-    
     @PermissionCallback
     private void flashlightPermissionCallback(PluginCall call) {
         if (getPermissionState("camera") == PermissionState.GRANTED) {

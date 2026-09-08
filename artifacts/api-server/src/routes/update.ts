@@ -14,6 +14,13 @@ const pkg = JSON.parse(
 
 const CURRENT_VERSION = pkg.version;
 
+interface GitHubRelease {
+  tag_name: string;
+  name?: string;
+  published_at?: string;
+  html_url: string;
+}
+
 router.get("/", async (_req, res) => {
   try {
     const response = await fetch(
@@ -28,7 +35,7 @@ router.get("/", async (_req, res) => {
       });
     }
 
-    const release = await response.json();
+      const release = (await response.json()) as GitHubRelease;
     const latestVersion = String(release.tag_name).replace(/^v/, "");
 
     return res.json({

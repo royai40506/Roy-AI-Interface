@@ -4,6 +4,7 @@ import { logger } from "../lib/logger.js";
 import { brainManager } from "../brain/index.js";
 import { brainExecutionPipeline } from "../brain/BrainExecutionPipeline.js";
 import { memoryService } from "../memory/index.js";
+import { visionService } from "../vision/index.js";
 import { generatePiperVoice } from "../services/piper.js";
 
 const router = Router();

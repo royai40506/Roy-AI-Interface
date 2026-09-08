@@ -38,7 +38,11 @@ export class BrainExecutionPipeline {
         : result.decision.intent === "memory"
         ? brainMemoryRouter.execute(result.decision)
         : result.decision.intent === "vision"
-        ? brainVisionRouter.execute(result.decision)
+          ? brainVisionRouter.execute(
+              result.decision,
+              request.image,
+              request.language
+            )
         : undefined;
 
     const dispatcherExecution =
