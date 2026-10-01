@@ -251,12 +251,23 @@ const speechSupported = useMemo(() => {
             <div className="flex gap-3">
               <button
                 className="flex-1 rounded-lg bg-primary px-4 py-2 text-primary-foreground"
-                onClick={() =>
-                  startUpdate(
-                    updateInfo?.downloadUrl ||
-                    "https://github.com/royai40506/Roy-AI-Interface/releases"
-                  )
-                }
+                onClick={async () => {
+                  try {
+                    await startUpdate(
+                      updateInfo?.downloadUrl ||
+                      "https://github.com/royai40506/Roy-AI-Interface/releases"
+                    );
+                  } catch (error) {
+                    console.error("ROY UPDATE ERROR:", error);
+                    toast({
+                      title: "Update Failed",
+                      description:
+                        error instanceof Error
+                          ? error.message
+                          : "Could not start the update.",
+                    });
+                  }
+                }}
               >
                 Update Now
               </button>
