@@ -7,8 +7,8 @@ android {
         applicationId "com.roy.ai"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode = (project.findProperty("royVersionCode") ?: "1").toString().toInteger()
-        versionName = (project.findProperty("royVersionName") ?: "1.0.0").toString()
+        versionCode = 1
+        versionName = "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
