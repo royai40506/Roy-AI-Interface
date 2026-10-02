@@ -240,7 +240,7 @@ const speechSupported = useMemo(() => {
       </button>
 
       {showUpdateDialog && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/60">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
           <div className="w-[340px] rounded-2xl border border-border bg-card p-6 shadow-2xl">
             <h2 className="text-xl font-bold mb-2">🚀 Update Available</h2>
 
