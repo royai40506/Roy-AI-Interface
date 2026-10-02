@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
-import { Menu, Check, Trash2, Heart, Sparkles, MonitorSmartphone } from 'lucide-react';
+import { Menu, Check, Trash2, Heart, Sparkles, MonitorSmartphone, RefreshCw } from 'lucide-react';
 import { useAppContext } from '@/context/AppContext';
+import { checkForUpdates } from "@/lib/update-api";
+import { startUpdate } from "@/plugins/UpdateManager";
+import { toast } from "@/hooks/use-toast";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -26,6 +29,9 @@ export default function SettingsPage() {
   const { language, setLanguage, accentColor, setAccentColor, clearMessages, setSidebarOpen } =
     useAppContext();
   const [cleared, setCleared] = useState(false);
+  const [updateInfo, setUpdateInfo] = useState<any>(null);
+  const [showUpdateDialog, setShowUpdateDialog] = useState(false);
+  const [checkingUpdate, setCheckingUpdate] = useState(false);
   const [, _navigate] = useLocation();
 
   const t = {
@@ -58,6 +64,50 @@ export default function SettingsPage() {
 
   return (
     <div className="flex flex-col h-full bg-background overflow-hidden relative">
+      {showUpdateDialog && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4">
+          <div className="w-full max-w-[340px] rounded-2xl border border-border bg-card p-6 shadow-2xl">
+            <h2 className="text-xl font-bold mb-2">🚀 Update Available</h2>
+            <p className="text-sm text-muted-foreground mb-5">
+              Latest Version: {updateInfo?.latestVersion ?? "Unknown"}
+            </p>
+
+            <div className="flex gap-3">
+              <button
+                type="button"
+                className="flex-1 rounded-xl bg-primary px-4 py-3 text-primary-foreground font-medium active:scale-[0.98] transition-transform"
+                onClick={async () => {
+                  try {
+                    await startUpdate(
+                      updateInfo?.downloadUrl ||
+                      "https://github.com/royai40506/Roy-AI-Interface/releases"
+                    );
+                  } catch (error) {
+                    toast({
+                      title: "Update Failed",
+                      description:
+                        error instanceof Error
+                          ? error.message
+                          : "Could not start the update.",
+                    });
+                  }
+                }}
+              >
+                Update Now
+              </button>
+
+              <button
+                type="button"
+                className="flex-1 rounded-xl border border-border px-4 py-3 font-medium active:bg-white/10 transition-colors"
+                onClick={() => setShowUpdateDialog(false)}
+              >
+                Later
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <header className="flex-shrink-0 h-16 px-2 flex items-center gap-2 border-b border-border/50 bg-background/80 backdrop-blur-md z-10 safe-top">
         <button
           onClick={() => setSidebarOpen(true)}
@@ -138,6 +188,62 @@ export default function SettingsPage() {
                   ))}
                 </div>
               </div>
+            </div>
+          </section>
+
+          {/* Updates Section */}
+          <section className="space-y-3">
+            <h2 className="text-xs font-semibold text-primary tracking-widest uppercase px-1">
+              Updates
+            </h2>
+            <div className="bg-card rounded-2xl border border-border/50 overflow-hidden">
+              <button
+                type="button"
+                disabled={checkingUpdate}
+                onClick={async () => {
+                  setCheckingUpdate(true);
+                  try {
+                    const info = await checkForUpdates();
+
+                    if (!info) {
+                      toast({
+                        title: "Update Check Failed",
+                        description: "Could not connect to GitHub.",
+                      });
+                      return;
+                    }
+
+                    setUpdateInfo(info);
+
+                    if (info.updateAvailable) {
+                      setShowUpdateDialog(true);
+                    } else {
+                      toast({
+                        title: "Roy AI is up to date",
+                        description: `Current version ${info.latestVersion ?? "Unknown"}.`,
+                      });
+                    }
+                  } catch (error) {
+                    toast({
+                      title: "Update Check Failed",
+                      description: "Could not check for updates.",
+                    });
+                  } finally {
+                    setCheckingUpdate(false);
+                  }
+                }}
+                className="w-full flex items-center gap-3 p-4 hover:bg-white/5 active:bg-white/10 transition-colors text-left disabled:opacity-60"
+              >
+                <RefreshCw className={`w-5 h-5 ${checkingUpdate ? "animate-spin" : ""}`} />
+                <div className="flex-1">
+                  <span className="block text-[15px] font-medium text-foreground">
+                    {checkingUpdate ? "Checking for Updates..." : "Check for Updates"}
+                  </span>
+                  <span className="block text-xs text-muted-foreground mt-0.5">
+                    Check the latest Roy AI version
+                  </span>
+                </div>
+              </button>
             </div>
           </section>
 
