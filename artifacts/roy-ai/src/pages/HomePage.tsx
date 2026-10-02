@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion } from 'framer-motion';
-import { Menu, MessageCircle, Brain, FolderOpen, Settings, ChevronDown } from 'lucide-react';
+import { Menu, MessageCircle, Brain, FolderOpen, Settings, ChevronDown, MoreVertical } from 'lucide-react';
 import { useAppContext } from '@/context/AppContext';
 import RoyAvatarFX from "@/components/RoyAvatarFX";
 import royAvatar from '/avatar/roy-avatar-v2.png';
@@ -17,6 +17,7 @@ export default function HomePage() {
   const [isVoiceActive, setIsVoiceActive] = useState(false);
 const [updateInfo, setUpdateInfo] = useState<any>(null);
 const [showUpdateDialog, setShowUpdateDialog] = useState(false);
+  const [showMoreMenu, setShowMoreMenu] = useState(false);
   
   const SpeechRecognitionAPI =
     typeof window !== "undefined"
@@ -206,39 +207,6 @@ const speechSupported = useMemo(() => {
     
 <div className="flex flex-col h-full bg-background overflow-hidden relative">
 
-      <button
-        type="button"
-        className="absolute top-4 right-4 z-40 rounded-lg border border-border bg-card/90 px-3 py-2 text-sm shadow-lg"
-        onClick={async () => {
-          const info = await checkForUpdates();
-
-          if (!info) {
-            toast({
-              title: "Update Check Failed",
-              description: "Could not connect to GitHub.",
-            });
-            return;
-          }
-
-          setUpdateInfo(info);
-
-          if (info.updateAvailable) {
-            setShowUpdateDialog(true);
-            toast({
-              title: "Update Available",
-              description: `New version ${info.latestVersion} is available.`,
-            });
-          } else {
-            toast({
-              title: "Roy AI is up to date",
-              description: `Current version ${info.latestVersion ?? "Unknown"}.`,
-            });
-          }
-        }}
-      >
-        Check for Updates
-      </button>
-
       {showUpdateDialog && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
           <div className="w-[340px] rounded-2xl border border-border bg-card p-6 shadow-2xl">
@@ -323,6 +291,55 @@ const speechSupported = useMemo(() => {
           {language === 'en' ? 'EN' : language === 'hi' ? 'हिं' : 'मरा'}
           <ChevronDown className="w-3 h-3 opacity-60" />
         </button>
+
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => setShowMoreMenu(!showMoreMenu)}
+            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/5 active:bg-white/10 transition-colors text-foreground"
+            aria-label="More options"
+          >
+            <MoreVertical className="w-6 h-6" />
+          </button>
+
+          {showMoreMenu && (
+            <div className="absolute right-0 top-12 z-50 w-52 rounded-xl border border-border bg-card p-2 shadow-xl">
+              <button
+                type="button"
+                className="w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-white/5"
+                onClick={async () => {
+                  setShowMoreMenu(false);
+                  const info = await checkForUpdates();
+
+                  if (!info) {
+                    toast({
+                      title: "Update Check Failed",
+                      description: "Could not connect to GitHub.",
+                    });
+                    return;
+                  }
+
+                  setUpdateInfo(info);
+
+                  if (info.updateAvailable) {
+                    setShowUpdateDialog(true);
+                    toast({
+                      title: "Update Available",
+                      description: `New version ${info.latestVersion} is available.`,
+                    });
+                  } else {
+                    toast({
+                      title: "Roy AI is up to date",
+                      description: `Current version ${info.latestVersion ?? "Unknown"}.`,
+                    });
+                  }
+                }}
+              >
+                Check for Updates
+              </button>
+            </div>
+          )}
+        </div>
       </header>
 
       {/* Main Content */}
