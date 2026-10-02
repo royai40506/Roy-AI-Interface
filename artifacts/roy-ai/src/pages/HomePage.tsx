@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion } from 'framer-motion';
-import { Menu, MessageCircle, Brain, FolderOpen, Settings, ChevronDown } from 'lucide-react';
+import { Menu, MessageCircle, Brain, FolderOpen, Settings, ChevronDown, MoreVertical } from 'lucide-react';
 import { useAppContext } from '@/context/AppContext';
 import RoyAvatarFX from "@/components/RoyAvatarFX";
 import royAvatar from '/avatar/roy-avatar-v2.png';
@@ -17,7 +17,8 @@ export default function HomePage() {
   const [isVoiceActive, setIsVoiceActive] = useState(false);
 const [updateInfo, setUpdateInfo] = useState<any>(null);
 const [showUpdateDialog, setShowUpdateDialog] = useState(false);
-    
+  const [showMoreMenu, setShowMoreMenu] = useState(false);
+  
   const SpeechRecognitionAPI =
     typeof window !== "undefined"
       ? ((window as any).SpeechRecognition ||
