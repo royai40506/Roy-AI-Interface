@@ -33,6 +33,7 @@ jobs:
           version: 11.16.0
 
       - run: pnpm install --no-frozen-lockfile
+
       - name: Read app version
         id: app-version
         run: |
@@ -45,15 +46,23 @@ jobs:
       - run: npx cap sync android
       - run: chmod +x android/gradlew
 
-      - run: |
+      - name: Prepare Android signing
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/roy-ai-release.jks
+          echo "ANDROID_KEYSTORE_PATH=$GITHUB_WORKSPACE/artifacts/roy-ai/android/roy-ai-release.jks" >> "$GITHUB_ENV"
+
+      - name: Build signed release APK
+        run: |
           cd android
-          ./gradlew assembleDebug --stacktrace --info
+          ./gradlew assembleRelease \
+            -PversionName="${{ steps.app-version.outputs.version }}" \
+            -PversionCode="${{ steps.app-version.outputs.version_code }}" \
+            --stacktrace --info
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Roy-AI-debug-apk
-          path: artifacts/roy-ai/android/app/build/outputs/apk/debug/app-debug.apk
-
+          name: Roy-AI-release-apk
+          path: artifacts/roy-ai/android/app/build/outputs/apk/release/app-release.apk
 
       - name: Create / Update GitHub Release
         uses: softprops/action-gh-release@v2
@@ -63,6 +72,6 @@ jobs:
           body: "version=${{ steps.app-version.outputs.version }}"
           prerelease: false
           make_latest: true
-          files: artifacts/roy-ai/android/app/build/outputs/apk/debug/app-debug.apk
+          files: artifacts/roy-ai/android/app/build/outputs/apk/release/app-release.apk
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ github.token }}

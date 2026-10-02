@@ -76,3 +76,7 @@ artifacts/api-server/backtest-*.json
 
 # Local gitignore backup
 .gitignore.transfer-backup
+
+roy-ai-release.jks
+app-debug.apk
+artifacts/roy-ai/android/roy-ai-release.jks
